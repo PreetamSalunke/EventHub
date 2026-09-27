@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {% if query %}
+        Search Results for "{{ query }}" - EventHub
+    {% else %}
+        All Events - EventHub
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container content-padding-top content">
+    <h1 class="text-center mb-4 page-title">
+        {% if query %}
+            Results for "{{ query }}"
+        {% else %}
+            All Available Events
+        {% endif %}
+    </h1>
+
+    {% include 'event/partials/event_cards.html' %}
+</div>
+{% endblock %}

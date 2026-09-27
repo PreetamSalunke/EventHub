@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book Tickets for {{ event.title }}{% endblock %}
+
+{% block extra_head %}
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="stylesheet" href="{% static 'event/css/booking_page.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container my-5 text-white">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="confirm-card">
+                <div class="card-header bg-danger text-white text-center">
+                    <h2 class="mb-0 page-title">Book Tickets for "{{ event.title }}"</h2>
+                </div>
+                <div class="card-body">
+                    <p><strong>Event Date:</strong> {{ event.date|date:"F d, Y" }}</p>
+                    <p><strong>Event Time:</strong> {{ event.time|time:"h:i A" }}</p>
+                    <p><strong>Price per ticket:</strong> ₹{{ event.price|floatformat:2 }}</p>
+                    <p><strong>Tickets Remaining:</strong> {{ event.tickets_remaining }}</p>
+
+                    <form id="booking-form" method="post">
+                        {% csrf_token %}
+                        <div class="mb-3 text-center">
+                            <label for="quantity" class="form-label">Quantity:</label>
+                            <div class="d-flex justify-content-center">
+                                <div class="d-flex align-items-center gap-2" style="max-width: 240px; width: 100%;">
+                                    <button type="button" class="btn btn-outline-danger" id="decreaseQuantity">-</button>
+                                    <input type="number" class="form-control text-center"
+                                           id="quantity" name="quantity"
+                                           min="1" max="{{ event.tickets_remaining }}"
+                                           value="{{ quantity|default:1 }}" readonly>
+                                    <button type="button" class="btn btn-outline-danger" id="increaseQuantity">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mb-3">
+                            <p class="fs-5">Total: ₹<span id="totalAmount">{{ event.price|floatformat:2 }}</span></p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Proceed to Payments</button>
+                    </form>
+
+                    <form id="razorpay-confirm-form" method="post" action="{% url 'event:confirm_payment' %}" style="display: none;">
+                        {% csrf_token %}
+                        <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+                        <input type="hidden" name="razorpay_order_id" id="razorpay_order_id_hidden">
+                        <input type="hidden" name="razorpay_signature" id="razorpay_signature">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const quantityInput = document.getElementById('quantity');
+    const decreaseButton = document.getElementById('decreaseQuantity');
+    const increaseButton = document.getElementById('increaseQuantity');
+    const totalAmountDisplay = document.getElementById('totalAmount');
+
+    const pricePerTicket = parseFloat("{{ event.price|floatformat:2 }}");
+    const minQuantity = parseInt(quantityInput.min);
+    const maxQuantity = parseInt(quantityInput.max);
+
+    function updateTotal() {
+        const qty = parseInt(quantityInput.value);
+        totalAmountDisplay.textContent = (qty * pricePerTicket).toFixed(2);
+    }
+
+    decreaseButton.addEventListener('click', () => {
+        let currentVal = parseInt(quantityInput.value);
+        if (currentVal > minQuantity) {
+            quantityInput.value = currentVal - 1;
+            updateTotal();
+        }
+    });
+
+    increaseButton.addEventListener('click', () => {
+        let currentVal = parseInt(quantityInput.value);
+        if (currentVal < maxQuantity) {
+            quantityInput.value = currentVal + 1;
+            updateTotal();
+        }
+    });
+
+    // Razorpay logic
+    const razorpayOrderId = "{{ razorpay_order_id|default:'' }}";
+    const razorpayKeyId = "{{ razorpay_key_id|default:'' }}";
+    const eventTitle = "{{ event.title|escapejs }}";
+    const userEmail = "{{ user_email|default:''|escapejs }}";
+    const userMobile = "{{ user_mobile|default:''|escapejs }}";
+    const currency = "{{ RAZORPAY_CURRENCY|default:'INR' }}";
+
+    if (razorpayOrderId && razorpayKeyId) {
+        const totalPricePaisa = Math.round(parseFloat(totalAmountDisplay.textContent) * 100);
+        const options = {
+            key: razorpayKeyId,
+            amount: totalPricePaisa,
+            currency: currency,
+            name: "EventHub",
+            description: `Tickets for ${eventTitle}`,
+            image: "{% static 'path/to/your/logo.png' %}",
+            order_id: razorpayOrderId,
+            handler: function (response) {
+                document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+                document.getElementById('razorpay_order_id_hidden').value = response.razorpay_order_id;
+                document.getElementById('razorpay_signature').value = response.razorpay_signature;
+                document.getElementById('razorpay-confirm-form').submit();
+            },
+            prefill: {
+                email: userEmail,
+                contact: userMobile
+            },
+            theme: {
+                color: "#DC3545"
+            },
+            modal: {
+                ondismiss: function () {
+                    alert('Payment cancelled. Please try again to complete your booking.');
+                }
+            }
+        };
+        const rzp = new Razorpay(options);
+        rzp.open();
+    }
+});
+</script>
+{% endblock %}

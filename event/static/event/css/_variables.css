@@ -1,0 +1,28 @@
+:root {
+    /* Main Theme Reds - Prioritizing elegance */
+    --primary-red: #c0392b; /* Using your existing --dark-red as the new primary for a deeper tone */
+    --dark-red: #a52a22; /* Even darker red for hover states */
+    --highlight-red: #e74c3c; /* A brighter red for accents, like focus glows or important highlights */
+
+    /* RGB values for consistency in rgba() */
+    --primary-red-rgb: 192, 57, 43;
+    --highlight-red-rgb: 231, 76, 60;
+
+    /* Greys and Surfaces */
+    --light-grey: #e0e0e0;
+    --medium-grey: #b0b0b0;
+    --dark-surface: #2c2c2c;
+    --deep-dark: #1a1a1a;
+    --navbar-dark: #111;
+    --modal-dark: #121212;
+
+    /* Input Specifics */
+    --input-dark: #3a3a3a;
+    --input-border-dark: #666; /* Slightly softer border for inputs than bright red */
+
+    /* Other Variables */
+    --navbar-height: 70px;
+    --event-card-glow-color: 255, 255, 255;
+    --aesthetic-border-color: rgba(255, 255, 255, 0.1);
+    --create-event-card-bg: #1a1a1a; /* Remains deep dark for that specific card */
+}

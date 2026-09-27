@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Refund Policy{% endblock %}
+
+{% block content %}
+{# Ensure your help.css (or components.css if it contains the .floating-card-help-page styles) is linked in base.html #}
+{# If not, you might need to add: <link rel="stylesheet" href="{% static 'event/css/help.css' %}"> here #}
+
+<div class="floating-card-help-page"> {# Re-using the help page styling #}
+    <h1 class="text-center mb-4">Refund Policy</h1>
+    <p>At EventHub, our primary role is to connect you with incredible events. While we facilitate ticket purchases, the specific refund policy for each event is determined by the individual event organizer. We urge you to **carefully review the refund policy stated on the individual event page** before committing to a ticket purchase.</p>
+    <p>Last updated: July 2, 2025</p>
+
+    ---
+
+    <section class="mb-5">
+        <h2>General Refund Conditions</h2>
+        <p>Unless explicitly stated otherwise on the event's detail page, the following general conditions apply:</p>
+        <ul>
+            <li>**No Refunds for Change of Mind:** Generally, tickets are non-refundable if you change your mind or are unable to attend for personal reasons.</li>
+            <li>**Transferability:** Some organizers may allow ticket transfers. Please check the event details for more information on transfer options.</li>
+            <li>**Specific Event Terms:** Always refer to the terms and conditions provided by the event organizer on the event's listing page, as these supersede any general policies.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section class="mb-5">
+        <h2>Event Cancellation by Organizer</h2>
+        <p>In the unfortunate event that an organizer cancels an event, the following usually applies:</p>
+        <ul>
+            <li>**Full Refund:** If an event is canceled entirely, ticket holders will typically receive a full refund of the ticket price, excluding any non-refundable booking fees if specified by the organizer.</li>
+            <li>**Notification:** We will notify all affected ticket holders via email as soon as we receive official confirmation of the cancellation from the organizer. This notification will include details on the refund process.</li>
+            <li>**Postponed Events:** If an event is postponed, the organizer will communicate new dates or alternative arrangements. Your original ticket may remain valid for the new date, or a refund option may be provided, as per the organizer's decision.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section class="mb-5">
+        <h2>Requesting a Refund</h2>
+        <p>If your situation falls under an eligible refund condition (e.g., event cancellation where a refund is offered):</p>
+        <ul>
+            <li>**Contact the Organizer:** For most event-specific refund inquiries, you should **contact the event organizer directly**. Their contact details are often available on the event page or in your booking confirmation email.</li>
+            <li>**Provide Details:** When contacting, be prepared to provide your booking reference number, the name of the event, and the reason for your refund request.</li>
+            <li>**EventHub Support:** If you have difficulty reaching the organizer or if the issue pertains to the payment processing itself (e.g., a payment error), you can contact EventHub's support team.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section>
+        <h2>Processing Time</h2>
+        <p>Refunds, when approved, will be processed according to the organizer's terms and our payment gateway's procedures (Razorpay). Please note:</p>
+        <ul>
+            <li>Refunds typically take **5-10 business days** to appear in your account, depending on your bank or payment method.</li>
+            <li>Delays can sometimes occur due to bank processing times.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section class="mt-5">
+        <h2>Need More Help?</h2>
+        <p>For any questions regarding a specific event's refund policy, please contact the event organizer directly. If you encounter issues with the platform or the payment process, feel free to reach out to our support team.</p>
+        <p>Email: <a href="mailto:support@yourdomain.com">support@yourdomain.com</a></p>
+        <p>(Optional) Phone: +91-XXXXXXXXXX (Available Monday - Friday, 9:00 AM - 5:00 PM IST)</p>
+    </section>
+
+    ---
+
+    <section>
+        <h2>Legal Information</h2>
+        <p>For comprehensive details on our broader policies and legal agreements, please refer to:</p>
+        <ul>
+            <li><a href="{% url 'event:terms_and_conditions' %}">Terms and Conditions</a></li>
+            <li><a href="{% url 'event:privacy_policy' %}">Privacy Policy</a></li>
+        </ul>
+        <p class="text-white-50">
+            <small>Note: Remember to replace `yourdomain.com` with your actual domain and ensure the URLs for "Terms and Conditions" and "Privacy Policy" match the actual `name` attributes defined in your Django `urls.py`.</small>
+        </p>
+    </section>
+
+</div>
+{% endblock %}

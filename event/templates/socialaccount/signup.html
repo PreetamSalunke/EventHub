@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+{% load widget_tweaks %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-white">
+  <h2 class="mb-4 text-danger">{% trans "Create your account" %}</h2>
+
+  {% if socialaccount_providers %}
+    <p class="text-light mb-4">
+      You're signing up using <strong>{{ socialaccount_providers.0.name }}</strong>. Please confirm or complete the fields below to continue.
+    </p>
+  {% endif %}
+
+  {% if form.errors %}
+    <div class="alert alert-danger">
+      {% for field in form %}
+        {% for error in field.errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+        <p>{{ error }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form method="post" action="{% url 'account_signup' %}" class="needs-validation">
+    {% csrf_token %}
+
+    {% if form.username %}
+      <div class="mb-3">
+        {{ form.username.label_tag }}
+        {{ form.username|add_class:"form-control bg-dark text-white border-danger" }}
+      </div>
+    {% endif %}
+
+    <div class="mb-3">
+      {{ form.email.label_tag }}
+      {{ form.email|add_class:"form-control bg-dark text-white border-danger" }}
+    </div>
+
+    {% if form.password1 %}
+      <div class="mb-3">
+        {{ form.password1.label_tag }}
+        {{ form.password1|add_class:"form-control bg-dark text-white border-danger" }}
+      </div>
+    {% endif %}
+
+    {% if form.password2 %}
+      <div class="mb-3">
+        {{ form.password2.label_tag }}
+        {{ form.password2|add_class:"form-control bg-dark text-white border-danger" }}
+      </div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-danger rounded-pill px-4">Sign Up</button>
+  </form>
+
+  {% if not socialaccount_providers %}
+    <p class="mt-4">
+      <a href="{% url 'account_login' %}" class="text-white">
+        Already have an account? <span class="text-danger">Login</span>
+      </a>
+    </p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load widget_tweaks %} {# Add this to use the add_class filter #}
+
+{% block title %}Login with Mobile - EventHub{% endblock %}
+
+{% block content %}
+<div class="container content-padding-top content">
+    {# Use floating-card for the login form, similar to other forms #}
+    <div class="floating-card login-card"> {# Added login-card for potentially specific sizing/styling #}
+        {# Use page-title for the heading #}
+        <h2 class="text-center mb-4 page-title">Login with Mobile</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {# Apply form-control-dark for input fields #}
+                    {{ field|add_class:"form-control-dark" }}
+                    {% for error in field.errors %}
+                        {# Use text-warning for error messages #}
+                        <div class="text-warning mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            {# Use your custom btn-primary for the submit button #}
+            <button type="submit" class="btn-primary mt-3">Send OTP</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

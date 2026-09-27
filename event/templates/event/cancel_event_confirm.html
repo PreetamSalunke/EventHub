@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="container content-padding-top content">
+    {# Use page-title from components.css for consistent heading styling #}
+    <h1 class="text-center mb-4 page-title">{{ page_title }}</h1>
+
+    {# Use floating-card for the main content block #}
+    {# The floating-card's background is now var(--dark-surface) as per updated components.css #}
+    <div class="floating-card">
+        {# Use text-danger from components.css which now uses var(--highlight-red) #}
+        <h2 class="text-danger mb-3">Are you sure you want to cancel "{{ event.title }}"?</h2>
+        
+        <p class="text-white">This action cannot be undone. Please review our cancellation policy:</p>
+        
+        {# Keep alert-info, but ensure its text color is managed by your CSS #}
+        <div class="alert alert-info text-white"> 
+            {{ cancellation_policy|safe }} {# Display the policy message as HTML #}
+        </div>
+
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="d-flex justify-content-between">
+                {# btn-primary now uses var(--primary-red) from components.css #}
+                <button type="submit" class="btn-primary">Yes, Cancel This Event</button>
+                {# btn-secondary now uses var(--light-grey) text and var(--primary-red) on hover #}
+                <a href="{% url 'event:my_events' %}" class="btn-secondary">No, Go Back</a> 
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }} - EventHub{% endblock %}
+
+{% block content %}
+<div class="container content-padding-top content">
+    {# Use page-title for consistent main heading styling #}
+    <h1 class="text-center mb-4 page-title">{{ page_title }}</h1>
+
+    {% if events %}
+        {# Use Bootstrap's responsive grid system for event cards #}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for event in events %}
+                <div class="col">
+                    {# event-card class applies standard card styling #}
+                    {# Add cancelled-event-card modifier class for specific cancelled styling #}
+                    <div class="event-card h-100 position-relative {% if event.is_cancelled %}cancelled-event-card{% endif %}">
+                        {# Link the entire card image for better clickability #}
+                        <a href="{% url 'event:event_detail' pk=event.pk %}" class="d-block text-decoration-none">
+                            {% if event.image %}
+                                <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}" style="height: 90px; object-fit: cover;">
+                            {% elif event.image_url %} {# Use image_url if no image is uploaded (e.g., external images) #}
+                                <img src="{{ event.image_url }}" class="card-img-top" alt="{{ event.title }}" style="height: 90px; object-fit: cover;">
+                            {% else %}
+                                <img src="{% static 'images/default_event_image.jpg' %}" class="card-img-top" alt="Default Event Image" style="height: 90px; object-fit: cover;">
+                            {% endif %}
+                        </a>
+                        
+                        <div class="card-body d-flex flex-column" style="min-height: 75px;">
+                            {# card-title is styled by event-card .card-title in components.css #}
+                            <h5 class="card-title mb-2" style="height: 24px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{ event.title }}</h5>
+                            
+                            {# Meta info with icons and consistent text color #}
+                            <p class="card-text text-muted mb-1 small"><i class="fas fa-calendar-alt me-1"></i> {{ event.date|date:"F d, Y" }} at {{ event.time|time:"h:i A" }}</p>
+                            <p class="card-text text-muted mb-2 small"><i class="fas fa-map-marker-alt me-1"></i> {{ event.location }}</p>
+                            
+                            {# Organizer name with consistent text color #}
+                            <p class="card-text organizer text-light-grey small">By: {{ event.organizer_name|default:event.organizer.username }}</p>
+                            
+                            {# Status banner based on event state #}
+                            {# Banners positioned using position-absolute on parent event-card #}
+                            {% if event.is_cancelled %}
+                                <span class="event-status-banner cancelled">Cancelled</span>
+                            {% elif event.is_upcoming %}
+                                <span class="event-status-banner upcoming">Upcoming</span>
+                            {% else %}
+                                <span class="event-status-banner expired">Expired</span>
+                            {% endif %}
+
+                            {# Action buttons at the bottom of the card #}
+                            <div class="mt-auto d-flex flex-wrap justify-content-between align-items-center pt-2">
+                                {# "View Details" button uses btn-secondary (or similar outline button if preferred) #}
+                                <a href="{% url 'event:event_detail' pk=event.pk %}" class="btn-secondary btn-sm flex-grow-1 me-1 mb-1">Details</a>
+                                
+                                {% if not event.is_cancelled and event.is_upcoming %}
+                                    {# Edit/Cancel buttons use primary/warning styles #}
+                                    <a href="{% url 'event:edit_event' pk=event.pk %}" class="btn-primary btn-sm flex-grow-1 me-1 mb-1">Edit</a>
+                                    <a href="{% url 'event:cancel_event' pk=event.pk %}" class="btn-warning btn-sm flex-grow-1 mb-1">Cancel Event</a>
+                                {% elif event.is_cancelled %}
+                                    {# Disabled button for cancelled events #}
+                                    <button type="button" class="btn btn-danger btn-sm disabled flex-grow-1 mb-1" disabled>Cancelled</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {# No events message using text-light-grey for consistency #}
+        <p class="text-center text-light-grey">You haven't created any events yet.</p>
+        <div class="text-center mt-4">
+            {# Button to create new event uses btn-primary #}
+            <a href="{% url 'event:create_event' %}" class="btn-primary">Create New Event</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

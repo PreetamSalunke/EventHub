@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{# Link to your help.css file. Make sure this path is correct based on your static file setup. #}
+<link rel="stylesheet" href="{% static 'event/css/help.css' %}">
+
+<div class="floating-card-help-page">
+    <h1 class="text-center mb-4">📚 Help Center</h1>
+
+    <section class="mb-5">
+        <h2>Welcome!</h2>
+        <p>Find answers to your questions, learn how to use our platform, and get support here. We're dedicated to making your experience smooth and enjoyable.</p>
+    </section>
+
+    <section class="mb-5">
+        <h2>Getting Started & Basic Usage</h2>
+        <h3>Account Management</h3>
+        <ul>
+            <li><strong>How to Register/Sign Up:</strong> Click on the "Sign Up" button, usually found in the top right corner, and follow the simple steps to create your account using your email address.</li>
+            <li><strong>How to Log In/Log Out:</strong> Use the "Log In" button to access your account. To log out, click on your profile/username in the navigation bar and select "Log Out."</li>
+            <li><strong>Password Reset:</strong> If you've forgotten your password, click the "Forgot Password?" link on the login page and follow the instructions to reset it.</li>
+            <li><strong>Updating Profile:</strong> (If applicable) You can usually update your personal details and preferences from your user dashboard or profile settings.</li>
+        </ul>
+
+        <h3>Browse Events</h3>
+        <ul>
+            <li><strong>Searching for Events:</strong> Utilize the search bar to find events by keywords, title, or description.</li>
+            <li><strong>Filtering Events:</strong> Refine your search results by applying filters such as event genre, specific dates, or locations from the event listing page.</li>
+            <li><strong>Understanding Event Details:</strong> Each event page provides comprehensive information including the event's date, time, precise location, ticket price, a detailed description, and an image.</li>
+        </ul>
+
+        <h3>Booking Tickets</h3>
+        <ol>
+            <li><strong>Select an Event:</strong> Browse through our events and click on the one you're interested in to view its full details.</li>
+            <li><strong>Choose Quantity:</strong> On the event's detail page, select the desired number of tickets you wish to purchase.</li>
+            <li><strong>Proceed to Payment:</strong> Click the "Book Now" or "Proceed to Payment" button to continue.</li>
+            <li><strong>Payment Process:</strong> We use Razorpay for secure and convenient online payments. Follow the on-screen prompts to complete your transaction using your preferred method (cards, net banking, UPI, wallets).</li>
+            <li><strong>Confirmation:</strong> Upon successful payment, you will receive an immediate booking confirmation via email (and optionally SMS). Your new booking will also be visible in your "My Bookings" section.</li>
+        </ol>
+
+        <h3>Viewing Your Bookings</h3>
+        <ul>
+            <li><strong>Accessing Bookings:</strong> Log in to your account and navigate to the "My Bookings" section (typically found in your user dropdown menu or dashboard).</li>
+            <li><strong>Booking Status:</strong> Here, you can view details of all your past and upcoming bookings, including the payment status and the quantity of tickets purchased.</li>
+        </ul>
+    </section>
+
+    <section class="mb-5">
+        <h2>For Event Organizers</h2>
+        <p>If you're an organizer looking to host and manage events on our platform, here's how:</p>
+        <ol>
+            <li><strong>Creating a New Event:</strong>
+                <ul>
+                    <li>Log into your account and access the "Create Event" page (usually via a link in your dashboard).</li>
+                    <li>Fill in all the required information accurately: Title, detailed Description, Date, Time, Location, Total Tickets available, and Ticket Price.</li>
+                    <li>Enhance your event listing by uploading an engaging **Event Image** directly or by providing an **Image URL**.</li>
+                    <li>Categorize your event by selecting the appropriate **Genre**, **Audience Type**, and **Event Type** from the dropdowns.</li>
+                    <li>Decide whether to **Publish Event** immediately for public viewing or save it as a draft for later.</li>
+                </ul>
+            </li>
+            <li><strong>Managing Your Events:</strong>
+                <ul>
+                    <li>Your organizer dashboard allows you to view and easily edit any events you have created.</li>
+                    <li>Keep track of your event's performance by monitoring real-time ticket sales and the number of remaining tickets.</li>
+                    <li>(Optional: Instructions on how to update event details or, if allowed, cancel an event.)</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+
+    <section class="mb-5">
+        <h2>Frequently Asked Questions (FAQs)</h2>
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Q: Can I cancel my booking or get a refund?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        A: Our refund policy is determined by the individual event organizer's terms and conditions. Please consult the specific event's details page for their policy or directly contact the organizer for cancellation and refund inquiries.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Q: What payment methods do you accept?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        A: We process payments securely through Razorpay, which supports a wide range of payment options including major credit and debit cards, net banking, UPI, and various digital wallets.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Q: I didn't receive my booking confirmation. What should I do?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        A: Please check your spam or junk email folder first. If the confirmation is not there, you can always find your booking details by logging into your account and visiting the "My Bookings" section. If you still require assistance, please contact our support team with your transaction details.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Q: What if an event is canceled?
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        A: If an event is canceled by the organizer, all ticket holders will be notified via email. Specific information regarding refunds or alternative arrangements will be communicated to you at that time.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-5">
+        <h2>Need More Help?</h2>
+        <p>If you can't find the answer to your question in our FAQs, please don't hesitate to reach out directly to our dedicated support team. We're here to assist you!</p>
+        <p>Email: <a href="mailto:support@yourdomain.com">support@yourdomain.com</a></p>
+        <p>(Optional) Phone: +91-XXXXXXXXXX (Available Monday - Friday, 9:00 AM - 5:00 PM IST)</p>
+        <p>We strive to respond to all inquiries within 24-48 business hours.</p>
+    </section>
+
+    <section>
+        <h2>Legal Information</h2>
+        <p>For comprehensive details on our policies and legal agreements, please refer to:</p>
+        <ul>
+            <li><a href="{% url 'event:terms_and_conditions' %}">Terms and Conditions</a></li>
+            <li><a href="{% url 'event:privacy_policy' %}">Privacy Policy</a></li>
+            <li><a href="{% url 'event:refund_policy' %}">Refund Policy</a></li>
+        </ul>
+        <p class="text-white-50">
+            <small>Note: Remember to replace `yourdomain.com` with your actual domain and ensure the URLs for "Terms and Conditions," "Privacy Policy," and "Refund Policy" match the actual `name` attributes defined in your Django `urls.urls`.</small>
+        </p>
+    </section>
+
+</div>
+{% endblock %}

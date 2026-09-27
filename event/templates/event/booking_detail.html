@@ -1,0 +1,49 @@
+{# event/templates/event/booking_detail.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Booking Details{% endblock %}
+
+{% block extra_head %}
+    {# Link to your page-specific CSS for booking details #}
+    <link rel="stylesheet" href="{% static 'event/css/booking_detail_page.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container floating-card">
+    <h1 class="page-title">Booking Details</h1>
+
+    {# Replaced custom message list with Bootstrap alert structure for consistency #}
+    {% if messages %}
+        <div class="mb-3">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="booking-summary">
+        <p><strong>Booking ID:</strong> {{ booking.id }}</p>
+        <p><strong>Event:</strong> <a href="{% url 'event:event_detail' booking.event.id %}">{{ booking.event.title }}</a></p>
+        <p><strong>Quantity:</strong> {{ booking.quantity }} tickets</p>
+        <p><strong>Total Price:</strong> ₹{{ booking.total_price }}</p>
+        <p><strong>Booking Date:</strong> {{ booking.booking_date|date:"F d, Y P" }}</p>
+        {% if booking.payment_id %}
+            <p><strong>Payment ID:</strong> {{ booking.payment_id }}</p>
+        {% endif %}
+        {% if booking.razorpay_order_id %}
+            <p><strong>Razorpay Order ID:</strong> {{ booking.razorpay_order_id }}</p>
+        {% endif %}
+    </div>
+
+    <hr>
+    {# Use Bootstrap's .btn class with your custom classes if you want them to behave like Bootstrap buttons #}
+    {# Or just use the custom classes if they are fully custom. I'm assuming custom for now. #}
+    <a href="{% url 'event:my_bookings' %}" class="btn-secondary">View All My Bookings</a>
+    <a href="{% url 'event:event_list' %}" class="btn-primary">Browse More Events</a>
+
+</div>
+{% endblock %}

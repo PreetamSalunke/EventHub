@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %} {# Make sure static is loaded for any future static assets #}
+
+{% block title %}Sign In Via Google - EventHub{% endblock %} {# Add your app name for consistent titles #}
+
+{% block content %}
+<div class="container content-padding-top content d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    {# Use floating-card for the Google sign-in prompt #}
+    <div class="floating-card login-card text-center"> {# Added text-center for alignment of content within the card #}
+        {# Use page-title for the heading, adjusted to h3 for sub-page headings within a card #}
+        <h3 class="mb-3 page-title">{% trans "Sign In Via Google" %}</h3>
+        {# Use text-light-grey for general text within the card #}
+        <p class="text-light-grey">{% trans "You are about to sign in using a third-party account from Google." %}</p>
+        <form method="post" action="">
+            {% csrf_token %}
+            {# Use your custom btn-primary for the continue button #}
+            <button type="submit" class="btn-primary mt-3">{% trans "Continue" %}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{# Using .confirm-card for the main container, as it's perfect for success messages #}
+<div class="container confirm-card">
+    {# Use page-title from components.css for consistent heading styling #}
+    <h1 class="page-title mb-3">✅ Event Created Successfully!</h1>
+    
+    <p class="lead text-light-grey">Redirecting to event page in <span id="countdown">5</span> seconds...</p>
+    
+    {# Use your custom btn-secondary for a light outline button #}
+    <a href="{% url 'event:event_detail' pk=event.pk %}" class="btn-secondary mt-3">Go Now</a>
+</div>
+
+<script>
+    let seconds = 5;
+    const countdown = document.getElementById('countdown');
+    const interval = setInterval(() => {
+        seconds--;
+        countdown.textContent = seconds;
+        if (seconds <= 0) {
+            clearInterval(interval);
+            window.location.href = "{% url 'event:event_detail' pk=event.pk %}";
+        }
+    }, 1000);
+</script>
+{% endblock %}

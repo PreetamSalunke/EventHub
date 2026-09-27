@@ -1,0 +1,46 @@
+{% load static %}
+
+<div class="browse-events-wrapper container py-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for event in events %}
+            <div class="col d-flex">
+                <div class="event-card d-flex flex-column h-100 w-100">
+                    <div class="event-card-image-wrapper">
+                        {% if event.image %}
+                            <img src="{{ event.image.url }}" class="event-card-img" alt="{{ event.title }}">
+                        {% else %}
+                            <img src="{% static 'images/default_event_image.jpg' %}" class="event-card-img" alt="Default Event Image">
+                        {% endif %}
+                    </div>
+
+                    <div class="event-card-body d-flex flex-column">
+                        <h4 class="event-card-title">{{ event.title }}</h4>
+
+                        <p class="event-card-meta">
+                            {{ event.date|date:"M d, Y" }} &middot; {{ event.location }}
+                        </p>
+
+                        <p class="event-card-price">
+                            {% if event.price > 0 %}
+                                <span class="price-tag">₹{{ event.price|floatformat:0 }}</span>
+                            {% else %}
+                                <span class="price-tag free-tag">FREE</span>
+                            {% endif %}
+                        </p>
+
+                        <div class="event-card-actions mt-auto d-flex justify-content-between gap-2">
+                            <a href="{% url 'event:book_event' event_id=event.pk %}" class="btn btn-book-now w-50">Book Now</a>
+                            <a href="{% url 'event:event_detail' pk=event.pk %}" class="btn btn-more-info w-50">More Info</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if not events %}
+            <div class="col-12">
+                <p class="text-light-grey text-center">No events found matching your criteria.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>

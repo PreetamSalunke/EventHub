@@ -1,0 +1,23 @@
+/* Styling for the quantity input group on the booking page */
+.quantity-input-group {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the group */
+    gap: 5px; /* Space between buttons and input */
+}
+.quantity-input-group .form-control {
+    text-align: center;
+    width: 80px; /* Adjust width as needed */
+    -moz-appearance: textfield; /* Firefox spinner hide */
+}
+.quantity-input-group .form-control::-webkit-outer-spin-button,
+.quantity-input-group .form-control::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Webkit spinner hide */
+    margin: 0;
+}
+.quantity-button {
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+/* Add any other specific styles for the booking page here if needed */
+/* For example, if you decide to customize .card or other elements specifically for this page */

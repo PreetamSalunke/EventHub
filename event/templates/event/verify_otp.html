@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %} {# Add this to use the add_class filter #}
+
+{% block title %}Verify OTP - EventHub{% endblock %}
+
+{% block content %}
+<div class="container content-padding-top content d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    {# Use floating-card for the OTP verification form #}
+    <div class="floating-card login-card"> {# Using login-card for consistent sizing with other forms #}
+        {# Use page-title for the heading #}
+        <h2 class="text-center mb-4 page-title">Verify OTP</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {# Apply form-control-dark for input fields #}
+                    {{ field|add_class:"form-control-dark" }}
+                    {% for error in field.errors %}
+                        {# Use text-warning for error messages #}
+                        <div class="text-warning mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            {# Use your custom btn-primary for the submit button #}
+            <button type="submit" class="btn-primary mt-3">Verify</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

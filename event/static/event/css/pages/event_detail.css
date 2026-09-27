@@ -1,0 +1,82 @@
+/* event/css/event_detail.css */
+
+.floating-card {
+    background-color: #1a1a1a;
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.1);
+    color: #e0e0e0;
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.detail-item {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: #ff4d4d;
+    margin-right: 8px;
+}
+
+.badge-genre,
+.badge.bg-danger {
+    background-color: #dc3545;
+    font-size: 0.85rem;
+    padding: 0.4em 0.6em;
+    border-radius: 0.4rem;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: transparent;
+    color: #ff4d4d;
+    border: 1px solid #ff4d4d;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    background-color: #ff4d4d;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .floating-card {
+        padding: 1.2rem;
+    }
+
+    .page-title {
+        font-size: 1.6rem;
+    }
+
+    .btn-primary {
+        width: 100%;
+        margin-top: 1rem;
+    }
+}
+.event-detail-img-hover {
+    transition: transform 0.4s ease, box-shadow 0.4s ease !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+}
+
+.event-detail-img-hover:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4) !important;
+}

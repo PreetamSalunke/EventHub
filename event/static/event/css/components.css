@@ -1,0 +1,735 @@
+/* --- Root Variables (assuming these are defined in a separate _variables.css or at the top of a main CSS file) --- */
+/* Example variables, ensure these match your actual _variables.css */
+:root {
+    --primary-red: #E74C3C; /* A vibrant red */
+    --primary-red-rgb: 231, 76, 60;
+    --dark-red: #C0392B;   /* Darker red for hover */
+    --highlight-red: #FF6B6B; /* A brighter red for highlights/borders */
+    --highlight-red-rgb: 255, 107, 107;
+
+    --dark-background: #1A1A1A; /* Very dark overall background */
+    --dark-surface: #2C2C2C;    /* Slightly lighter dark for cards/elements */
+    --deep-dark: #222222;       /* For specific deep dark elements like the create event card */
+
+    --light-grey: #ECF0F1; /* Almost white, primary text color */
+    --medium-grey: #BDC3C7;    /* Softer grey for secondary text/borders */
+    --dark-grey: #7F8C8D;      /* Even darker grey for very subtle text */
+
+    --input-dark: #3A3A3A;      /* Darker background for input fields */
+    --input-border-dark: #555555; /* Border color for inputs */
+
+    --aesthetic-border-color: rgba(var(--light-grey-rgb, 236, 240, 241), 0.1); /* Subtle border for general elements */
+    --event-card-glow-color: rgba(var(--highlight-red-rgb), 0.4); /* Glow for event cards */
+    
+    --text-color: #ECF0F1; /* General text color for the body */
+    --success-color: #2ECC71; /* Green for success messages/badges */
+    --info-color: #3498DB; /* Blue for info messages/badges */
+    --warning-color: #F39C12; /* Yellow for warnings/errors */
+
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+    /* Specific to Create Event Card if different */
+    --create-event-card-bg: var(--deep-dark); /* Using a very dark for create event card specifically */
+}
+
+/* --- Base Body and Container Styles (from base.html context) --- */
+body {
+    background-color: var(--dark-background);
+    color: var(--text-color); /* Default text color */
+}
+
+.container {
+    max-width: 1200px; /* Adjust container width as needed */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.content-padding-top {
+    padding-top: 50px; /* Standard top padding for content below navbar */
+}
+
+.content {
+    margin-bottom: 50px; /* Standard bottom margin for content */
+}
+
+/* --- Generic Floating Card (for forms, etc.) --- */
+.floating-card {
+    background-color: var(--dark-surface); /* Using dark-surface for main cards */
+    border-radius: var(--border-radius-lg);
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 600px; /* Default max-width for smaller cards */
+    box-shadow: var(--shadow-lg);
+    transition: box-shadow 0.3s ease-in-out;
+    color: var(--light-grey);
+    border: 1px solid var(--aesthetic-border-color); /* Soft aesthetic border */
+}
+
+.floating-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7),
+                0 20px 50px rgba(0, 0, 0, 0.6),
+                0 0 25px rgba(var(--primary-red-rgb), 0.3); /* Soft glow using primary red */
+}
+
+.floating-card form {
+    margin-top: 20px;
+}
+
+/* --- Modifier for larger floating cards (e.g., Create Event form) --- */
+.floating-card.form-lg {
+    max-width: 900px;
+    width: 90%;
+    margin: 50px auto;
+    background-color: var(--create-event-card-bg); /* Retains the deep dark for this specific card */
+    border: 1px solid var(--primary-red); /* Border in the new primary red */
+    box-shadow: var(--shadow-md); /* Adjusted shadow for form-lg */
+}
+
+/* --- Modifier for login/register cards for specific sizing --- */
+.floating-card.login-card { /* Applies to both login and register forms */
+    max-width: 450px; /* Make these cards slightly narrower */
+}
+
+
+/* --- Labels within Floating Cards --- */
+.floating-card label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--light-grey); /* Labels are light grey for better contrast with dark inputs */
+}
+
+/* --- General Form Controls (for input, textarea, select) --- */
+.form-control-dark {
+    background-color: var(--input-dark) !important;
+    color: var(--light-grey) !important;
+    border: 1px solid var(--input-border-dark) !important; /* Softer border color */
+    border-radius: var(--border-radius-md) !important;
+    padding: 12px !important;
+    font-size: 1em !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: 100%; /* Ensure full width within its container */
+}
+
+.form-control-dark::placeholder {
+    color: var(--medium-grey) !important;
+    opacity: 0.7;
+}
+
+.form-control-dark::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Makes date picker icon white */
+}
+
+.form-control-dark:focus {
+    background-color: var(--input-dark) !important; /* Keep input background consistent on focus */
+    border-color: var(--highlight-red) !important; /* Use highlight red for a crisp focus border */
+    box-shadow: 0 0 0 0.25rem rgba(var(--highlight-red-rgb), 0.25) !important; /* Glow with highlight red */
+    color: var(--light-grey) !important;
+}
+
+/* Specific styles for select elements (dropdowns) to ensure custom arrow */
+.form-select.form-control-dark {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* Custom arrow color changed to primary red */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23C0392B' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+}
+
+/* Checkbox/Radio styling (Bootstrap's form-check and form-check-input) */
+.form-check-input {
+    background-color: var(--input-dark);
+    border-color: var(--input-border-dark);
+    /* For checked state */
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-red);
+    border-color: var(--primary-red);
+}
+
+.form-check-label {
+    color: var(--light-grey); /* Ensure labels are light grey */
+}
+
+/* --- Primary Button Style (for main actions) --- */
+.btn-primary {
+    background-color: var(--primary-red); /* Deeper red for primary buttons */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Default to full width for forms */
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(var(--primary-red-rgb), 0.2);
+    text-align: center; /* Ensures text is centered if it's a link */
+    display: inline-block; /* For links to behave like buttons */
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-red); /* Even darker red on hover */
+    box-shadow: 0 4px 15px rgba(var(--primary-red-rgb), 0.5);
+    transform: translateY(-2px);
+    color: white; /* Ensure text remains white on hover */
+    text-decoration: none; /* Remove underline for links */
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 5px rgba(var(--primary-red-rgb), 0.3);
+}
+
+/* --- Secondary Button Style (for alternative actions) --- */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--light-grey);
+    padding: 10px 15px;
+    border: 1px solid var(--medium-grey);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    text-align: center; /* Ensures text is centered if it's a link */
+    display: inline-block; /* For links to behave like buttons */
+}
+
+.btn-secondary:hover {
+    background-color: rgba(var(--primary-red-rgb), 0.1); /* Subtle hover with primary red */
+    border-color: var(--primary-red); /* Border changes to primary red */
+    color: var(--primary-red); /* Text changes to primary red */
+    text-decoration: none; /* Remove underline for links */
+}
+
+.btn-secondary:active {
+    transform: scale(0.98);
+}
+
+/* --- Page Title Styles --- */
+.page-title {
+    color: var(--light-grey); /* Page titles remain light grey/white */
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* --- Detail Item Styles (for confirmation/booking displays) --- */
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    color: var(--light-grey);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: var(--medium-grey); /* Labels are medium grey for softer look */
+}
+
+/* --- Text Color Utilities --- */
+.text-danger { /* For text that needs to be explicitly red, e.g., "Are you sure?" messages */
+    color: var(--highlight-red) !important; /* Use highlight red for clearer danger messages */
+}
+
+.text-warning { /* For form errors or warnings */
+    color: var(--warning-color) !important; /* Use defined warning color */
+    font-size: 0.875em;
+}
+
+/* Custom text utility for light grey, primarily used where default might be different */
+.text-light-grey {
+    color: var(--light-grey) !important;
+}
+
+/* NEW: Custom text utility for primary red links */
+.text-primary-red-link {
+    color: var(--primary-red) !important; /* Ensure it overrides other text colors */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.text-primary-red-link:hover {
+    color: var(--highlight-red) !important; /* Lighter red on hover */
+    text-decoration: underline;
+}
+
+
+/* --- Confirmation/Success Card Specifics --- */
+.confirm-card {
+    background-color: var(--dark-surface); /* Consistent dark surface for these cards */
+    border-radius: var(--border-radius-lg);
+    padding: 30px;
+    margin: 50px auto;
+    max-width: 700px;
+    box-shadow: var(--shadow-lg);
+    color: var(--light-grey);
+    border: 1px solid rgba(var(--primary-red-rgb), 0.3); /* Subtle red border using primary red */
+    text-align: center;
+}
+
+.confirm-card .confirm-info {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.confirm-card .confirm-info p strong {
+    color: var(--primary-red); /* Strong text in confirmation info uses primary red */
+}
+
+.confirm-card .success-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* --- Event Card Styles (for listings, search results, genre pages, bookings) --- */
+.event-card {
+    background-color: var(--dark-surface);
+    border: 1px solid var(--aesthetic-border-color);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    text-decoration: none; /* For the <a> tag wrapping the card */
+    color: var(--light-grey); /* Default text for event card */
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    height: 100%; /* Ensures cards in a row have equal height for flexbox/grid */
+    position: relative; /* Crucial for positioning the status banner */
+    display: flex; /* Makes the card a flex container */
+    flex-direction: column; /* Stacks image and body vertically */
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md); /* Slightly larger shadow on hover */
+    border-color: var(--highlight-red); /* Highlight border on hover */
+}
+
+.event-card img.card-img-top {
+    width: 100%;
+    height: 90px; /* Consistent height for all card images */
+    object-fit: cover;
+}
+
+.event-card .card-body {
+    padding: 15px; /* Adjust padding as needed */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows the body content to expand and push content to bottom */
+}
+
+.event-card .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--light-grey); /* Event title color */
+    margin-bottom: 0.5rem; /* Space below title */
+}
+
+/* Specific styling for truncated content within cards */
+.event-card .card-text {
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.event-card .card-text.text-muted {
+    color: var(--medium-grey) !important; /* Softer grey for date/location */
+}
+
+.event-card .card-text.text-light-grey {
+    color: var(--light-grey) !important; /* Explicitly light grey for description/organizer */
+}
+
+/* Event Status Banners (for My Bookings and My Events pages) */
+.event-status-banner {
+    position: absolute;
+    top: 10px; /* Distance from top */
+    right: 10px; /* Distance from right */
+    padding: 5px 10px;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 10; /* Ensures it overlays content */
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Small shadow for the banner */
+}
+
+.event-status-banner.upcoming {
+    background-color: var(--success-color); /* Green for upcoming */
+    color: #fff; /* White text on green */
+}
+
+.event-status-banner.expired {
+    background-color: var(--dark-grey); /* Dark grey for expired */
+    color: var(--light-grey); /* Light grey text on dark grey */
+}
+
+/* Styles for 'Cancelled' banner for My Events */
+.event-status-banner.cancelled {
+    background-color: var(--primary-red); /* Red for cancelled */
+    color: #fff; /* White text on red */
+}
+
+/* Styling for cancelled event cards */
+.event-card.cancelled-event-card {
+    opacity: 0.7; /* Slightly dim cancelled cards */
+    /* pointer-events: none; Remove this if you want clicks on the card itself to go to detail page */
+    filter: grayscale(50%); /* Make it slightly monochrome */
+    border-color: var(--primary-red); /* Red border for cancelled */
+}
+
+/* If you disable pointer-events on the card, but want links inside clickable: */
+.cancelled-event-card a {
+    pointer-events: auto; /* Re-enable pointer events for links inside */
+    text-decoration: none; /* Ensure no underline unless hovered */
+}
+
+
+/* No Bookings/Events Message */
+.no-bookings-message {
+    font-size: 1.1rem;
+    margin-top: 50px;
+    color: var(--light-grey); /* Matches page title color */
+    text-align: center;
+    width: 100%; /* Ensures it centers in a grid row */
+}
+
+.no-bookings-message .btn-secondary {
+    margin-top: 20px; /* Space above the button */
+    display: inline-block; /* To allow vertical margin */
+    max-width: 250px; /* Limit button width */
+}
+
+/* --- Genre Browse Page Styles --- */
+.genre-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Responsive grid */
+    gap: 25px;
+    padding: 20px 0;
+    max-width: 1000px; /* Keep it contained */
+    margin: 0 auto;
+}
+
+.genre-card {
+    background-color: var(--dark-surface);
+    border: 1px solid var(--aesthetic-border-color);
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--light-grey);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.genre-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--highlight-red);
+}
+
+.genre-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    filter: grayscale(10%) brightness(120%);
+}
+
+.genre-card .genre-info h3 {
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+    color: var(--primary-red); /* Genre name in primary red */
+}
+
+.genre-card .genre-info p {
+    font-size: 0.9rem;
+    color: var(--medium-grey); /* Event count in a softer grey */
+}
+
+/* Bootstrap Overrides / Dark Theme Adjustments */
+/* Adjust form-check-label color if not automatically picked up by floating-card */
+.form-check-label {
+    color: var(--light-grey);
+}
+
+/* Ensure Bootstrap's form-text (help text) is visible */
+.form-text {
+    color: var(--dark-grey) !important; /* A softer, darker grey for help text */
+}
+
+/* Ensure default Bootstrap badges look good with your theme */
+.badge {
+    padding: 0.5em 0.7em;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.badge.bg-success { background-color: var(--success-color) !important; color: var(--dark-surface); }
+.badge.bg-info { background-color: var(--info-color) !important; color: #fff; }
+.badge.bg-secondary { background-color: var(--medium-grey) !important; color: var(--dark-surface); }
+.badge.bg-danger { background-color: var(--primary-red) !important; color: #fff; }
+
+/* Ensure custom button styles override Bootstrap defaults where needed */
+.btn-primary.btn-sm,
+.btn-secondary.btn-sm,
+.btn-warning.btn-sm,
+.btn-danger.btn-sm {
+    padding: 8px 12px; /* Smaller padding for small buttons */
+    font-size: 0.9em;
+}
+
+/* Specific button styles to override Bootstrap's btn-outline-danger, btn-warning, btn-danger if used directly */
+.btn.btn-outline-danger {
+    color: var(--highlight-red);
+    border-color: var(--highlight-red);
+    background-color: transparent;
+}
+.btn.btn-outline-danger:hover {
+    color: white;
+    background-color: var(--highlight-red);
+    border-color: var(--highlight-red);
+}
+
+.btn.btn-warning {
+    background-color: var(--warning-color);
+    color: var(--dark-surface); /* Dark text on warning */
+    border-color: var(--warning-color);
+}
+.btn.btn-warning:hover {
+    background-color: darken(var(--warning-color), 10%); /* Darker yellow */
+    color: var(--dark-surface);
+    border-color: darken(var(--warning-color), 10%);
+}
+
+.btn.btn-danger {
+    background-color: var(--primary-red);
+    color: #fff;
+    border-color: var(--primary-red);
+}
+.btn.btn-danger:hover {
+    background-color: var(--dark-red);
+    border-color: var(--dark-red);
+    color: #fff;
+}
+
+
+/* --- Navbar Specific Styles --- */
+.navbar-dark-bg {
+    background-color: var(--dark-surface); /* Or --deep-dark, whatever you prefer for navbar */
+    box-shadow: var(--shadow-md); /* Consistent shadow with your theme */
+}
+
+/* Ensure nav-links get the right color on hover/focus */
+.navbar-nav .nav-link {
+    color: var(--light-grey); /* Default color for all nav links */
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+    color: var(--primary-red); /* Highlight on hover/focus */
+}
+
+/* Button that looks like a nav-link in dark mode */
+.btn.btn-link-dark {
+    color: var(--light-grey) !important;
+    background-color: transparent !important;
+    border: none !important;
+    /* Use Bootstrap's CSS variables for nav-link padding/font-size if available,
+       otherwise, define specific values or copy from Bootstrap's compiled CSS.
+       Here, using general values for now. */
+    padding: 0.5rem 1rem; /* Example: typical nav-link padding */
+    font-size: 1rem; /* Example: typical nav-link font size */
+    font-weight: 400; /* Example: typical nav-link font weight */
+}
+
+.btn.btn-link-dark:hover,
+.btn.btn-link-dark:focus {
+    color: var(--primary-red) !important;
+    text-decoration: underline; /* Add underline on hover for link-like behavior */
+}
+
+/* --- Small Primary Button (for search and logout) --- */
+.btn-primary-sm {
+    background-color: var(--primary-red);
+    color: white;
+    padding: 8px 12px; /* Smaller padding */
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 0.9em; /* Smaller font size */
+    font-weight: bold;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(var(--primary-red-rgb), 0.2);
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-primary-sm:hover {
+    background-color: var(--dark-red);
+    box-shadow: 0 3px 10px rgba(var(--primary-red-rgb), 0.4);
+    transform: translateY(-1px);
+    color: white;
+    text-decoration: none;
+}
+
+/* --- Small Danger Button (for logout) --- */
+.btn-danger-sm {
+    background-color: var(--primary-red); /* Using primary-red for danger */
+    color: white;
+    padding: 8px 12px; /* Smaller padding */
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 0.9em; /* Smaller font size */
+    font-weight: bold;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(var(--primary-red-rgb), 0.2);
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-danger-sm:hover {
+    background-color: var(--dark-red);
+    box-shadow: 0 3px 10px rgba(var(--primary-red-rgb), 0.4);
+    transform: translateY(-1px);
+    color: white;
+    text-decoration: none;
+}
+
+/* --- Form Control for Navbar Search --- */
+.form-control-dark-navbar {
+    background-color: var(--input-dark) !important;
+    color: var(--light-grey) !important;
+    border: 1px solid var(--input-border-dark) !important;
+    border-radius: var(--border-radius-md) !important; /* Or rounded-pill if you want that specific look */
+    padding: 8px 12px !important; /* Adjusted padding for navbar */
+    font-size: 0.9em !important;
+}
+
+.form-control-dark-navbar::placeholder {
+    color: var(--medium-grey) !important;
+    opacity: 0.7;
+}
+
+.form-control-dark-navbar:focus {
+    border-color: var(--highlight-red) !important;
+    box-shadow: 0 0 0 0.2rem rgba(var(--highlight-red-rgb), 0.25) !important;
+}
+
+/* --- Modal Specific Styles --- */
+.modal-content-dark {
+    background-color: var(--dark-surface); /* Background of the modal */
+    color: var(--light-grey); /* Default text color in modal */
+    border-radius: var(--border-radius-lg); /* Rounded corners for the modal */
+    border: 1px solid var(--aesthetic-border-color); /* Subtle border */
+    box-shadow: var(--shadow-lg); /* Consistent shadow */
+}
+
+/* Style for social/email buttons in the modal */
+.btn-social {
+    background-color: transparent;
+    color: var(--highlight-red); /* Text color for social buttons */
+    border: 1px solid var(--highlight-red); /* Border color for social buttons */
+    border-radius: 50px; /* Rounded pill shape */
+    padding: 10px 20px;
+    font-size: 1.05em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-social:hover {
+    background-color: var(--highlight-red); /* Fill with red on hover */
+    color: white; /* White text on hover */
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(var(--highlight-red-rgb), 0.3);
+}
+
+/* Style for the alert message within the modal */
+.alert-message {
+    background-color: var(--dark-background); /* A slightly darker background for the alert */
+    color: var(--warning-color); /* Warning text color */
+    border: 1px solid var(--warning-color); /* Warning border color */
+    padding: 10px 15px;
+    border-radius: 50px; /* Rounded pill shape for alert */
+    font-size: 0.9em;
+}
+
+/* Style for form controls specifically in modals (if needed, otherwise form-control-dark will apply) */
+/* .form-control-dark-modal {
+    background-color: var(--input-dark) !important;
+    color: var(--light-grey) !important;
+    border: 1px solid var(--input-border-dark) !important;
+    border-radius: 50px !important; # Assuming you want rounded pills for modal inputs
+    padding: 12px !important;
+    font-size: 1em !important;
+}
+
+.form-control-dark-modal:focus {
+    border-color: var(--highlight-red) !important;
+    box-shadow: 0 0 0 0.25rem rgba(var(--highlight-red-rgb), 0.25) !important;
+} */
+
+
+/* --- Toast Notification Styles --- */
+.toast-dark {
+    background-color: var(--dark-surface) !important; /* Default dark background for toasts */
+    color: var(--light-grey) !important; /* Default text color for toasts */
+    border: 1px solid var(--aesthetic-border-color) !important;
+}
+
+/* Override Bootstrap's specific toast background colors to use your variables */
+.toast.bg-success {
+    background-color: var(--success-color) !important;
+    color: var(--dark-surface) !important; /* Dark text on success */
+}
+.toast.bg-info {
+    background-color: var(--info-color) !important;
+    color: #fff !important;
+}
+.toast.bg-warning {
+    background-color: var(--warning-color) !important;
+    color: var(--dark-surface) !important; /* Dark text on warning */
+}
+.toast.bg-danger {
+    background-color: var(--primary-red) !important;
+    color: #fff !important;
+}
+.toast.bg-secondary { /* For default/info messages */
+    background-color: var(--medium-grey) !important;
+    color: var(--dark-background) !important;
+}
+
+/* Ensuring btn-close in toast is white */
+.toast .btn-close-white {
+    filter: brightness(0) invert(1); /* Makes the close button white */
+}

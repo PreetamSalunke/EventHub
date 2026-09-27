@@ -1,0 +1,109 @@
+/* Styles for the booking detail page */
+
+.floating-card {
+    background-color: var(--dark-bg-card); /* Assuming you have a dark card background variable */
+    color: var(--text-color); /* Assuming you have a general text color variable */
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5); /* Stronger shadow for "floating" effect */
+    margin-top: 3rem; /* Adjust as needed for spacing from navbar */
+    margin-bottom: 3rem;
+}
+
+.page-title {
+    color: var(--danger-color); /* Your primary danger color */
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.booking-summary p {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+}
+
+.booking-summary p strong {
+    color: var(--text-color-light); /* Or a slightly lighter text color for labels */
+    display: inline-block;
+    width: 150px; /* Adjust as needed for label alignment */
+}
+
+/* Custom button styles, if not already in components.css */
+/* If these are meant to be Bootstrap buttons, ensure you use Bootstrap's .btn class */
+/* and then .btn-primary, .btn-secondary etc. Your current HTML implies custom classes. */
+.btn-secondary {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    margin-right: 1rem;
+    background-color: var(--secondary-button-bg); /* Define this in _variables.css */
+    color: var(--secondary-button-text); /* Define this in _variables.gss */
+    border: 1px solid var(--secondary-button-border); /* Define this in _variables.css */
+    border-radius: 0.3rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-button-hover-bg); /* Define this */
+    border-color: var(--secondary-button-hover-border); /* Define this */
+    color: var(--secondary-button-hover-text); /* Define this */
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--danger-color); /* Using danger color as primary button */
+    color: var(--white); /* White text for danger button */
+    border: 1px solid var(--danger-color);
+    border-radius: 0.3rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--danger-hover-color); /* Define this */
+    border-color: var(--danger-hover-color); /* Define this */
+    color: var(--white);
+}
+
+/* Styles for messages if not using Bootstrap alerts for them */
+.messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+.messages li {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    font-size: 0.95rem;
+}
+
+.messages .success {
+    color: var(--success-color); /* Green for success */
+    background-color: var(--success-bg); /* Light green background */
+    border-color: var(--success-border);
+}
+
+.messages .info {
+    color: var(--info-color); /* Blue for info */
+    background-color: var(--info-bg);
+    border-color: var(--info-border);
+}
+
+.messages .warning {
+    color: var(--warning-color); /* Orange for warning */
+    background-color: var(--warning-bg);
+    border-color: var(--warning-border);
+}
+
+.messages .error {
+    color: var(--error-color); /* Red for error */
+    background-color: var(--error-bg);
+    border-color: var(--error-border);
+}
+

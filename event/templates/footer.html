@@ -1,0 +1,57 @@
+{% load static %}
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-column about-us">
+            <h4 class="footer-logo">EventHub</h4>
+            <p>Your one-stop destination for discovering and booking amazing events, concerts, workshops, and more. Join us for unforgettable experiences!</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-column quick-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="{% url 'event:event_list' %}">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">FAQs</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column categories">
+            <h4>Event Categories</h4>
+            <ul>
+                {# You'll need to pass genres from a context processor or view if you want dynamic categories here #}
+                <li><a href="{% url 'event:genre_list' %}">All Genres</a></li>
+                <li><a href="{% url 'event:events_by_genre' slug='music' %}">Music Concerts</a></li>
+                <li><a href="{% url 'event:events_by_genre' slug='sports' %}">Sports Events</a></li>
+                <li><a href="{% url 'event:events_by_genre' slug='comedy' %}">Comedy Shows</a></li>
+                <li><a href="{% url 'event:events_by_genre' slug='workshops' %}">Workshops</a></li>
+                <li><a href="{% url 'event:events_by_genre' slug='theatre' %}">Theatre & Arts</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column contact-info">
+            <h4>Contact Us</h4>
+            <p><i class="fas fa-map-marker-alt"></i> 123 Event Street, City, State, Country</p>
+            <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+            <p><i class="fas fa-envelope"></i> info@eventhub.com</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; {% now "Y" %} EventHub. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="https://kit.fontawesome.com/YOUR_FONT_AWESOME_KIT_CODE.js" crossorigin="anonymous"></script>
+{# IMPORTANT: Replace YOUR_FONT_AWESOME_KIT_CODE with your actual Font Awesome kit code #}
+{# If you don't have a kit, you can use the CDN for free, but it's recommended to get a kit for better performance #}
+{# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> #}

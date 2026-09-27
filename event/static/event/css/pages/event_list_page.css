@@ -1,0 +1,96 @@
+.event-list-page {
+    padding-bottom: 20px;
+    min-height: calc(100vh - var(--navbar-height) - 40px);
+    background-color: transparent;
+    color: var(--light-grey);
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.filter-sidebar {
+    background-color: rgba(44, 44, 44, 0.9);
+    padding: 20px;
+    border-right: 1px solid rgba(var(--accent-red-rgb), 0.5);
+    position: sticky;
+    top: calc(var(--navbar-height) + 20px);
+    align-self: flex-start;
+    height: calc(100vh - var(--navbar-height) - 40px);
+    overflow-y: auto;
+    max-height: calc(100vh - var(--navbar-height) - 40px);
+    z-index: 1;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.filter-sidebar:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    border-color: rgba(var(--accent-red-rgb), 0.8);
+}
+
+.filter-sidebar .card-header {
+    background-color: rgba(44, 44, 44, 0.95);
+    border-bottom: 1px solid rgba(var(--accent-red-rgb), 0.7);
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.filter-form label {
+    color: var(--light-grey);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.filter-form .btn-danger {
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.filter-form .btn-outline-secondary {
+    color: var(--medium-grey);
+    border-color: var(--medium-grey);
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+.filter-form .btn-outline-secondary:hover {
+    background-color: var(--medium-grey);
+    color: var(--deep-dark);
+    box-shadow: 0 4px 12px rgba(176, 176, 176, 0.4);
+    transform: translateY(-1px);
+}
+.filter-form .btn-outline-secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 5px rgba(176, 176, 176, 0.2);
+}
+
+.event-list-content .btn-outline-danger {
+    color: var(--accent-red) !important;
+    border-color: var(--accent-red) !important;
+}
+.event-list-content .btn-outline-danger:hover {
+    background-color: var(--accent-red) !important;
+    color: var(--light-grey) !important;
+}
+
+@media (max-width: 767.98px) {
+    .filter-sidebar {
+        position: static;
+        height: auto;
+        max-height: none;
+        border-right: none;
+        border-bottom: 1px solid rgba(var(--accent-red-rgb), 0.5);
+        margin-bottom: 20px;
+        top: auto;
+        left: auto;
+        border-radius: 12px;
+    }
+
+    .filter-sidebar .card-header {
+        border-radius: 12px 12px 0 0;
+    }
+}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block extra_head %}
+    {# It's recommended that components.css is loaded globally in your base.html #}
+    {# If not, you would link it here: <link rel="stylesheet" href="{% static 'path/to/your/components.css' %}"> #}
+{% endblock %}
+
+{% block content %}
+{# Use the generic floating-card with the 'form-lg' modifier for the wider layout #}
+<div class="floating-card form-lg">
+    {# Use page-title for the main heading. Its color is handled by components.css (var(--light-grey)) #}
+    <h2 class="mb-4 text-center page-title">🎉 Create New Event</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {# Row 1: Title and Genre #}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                {# Labels within floating-card are now styled by components.css (var(--light-grey)) #}
+                <label>📝 {{ form.title.label }}</label>
+                {{ form.title|add_class:"form-control-dark" }} {# Apply the dark input styling #}
+                {% if form.title.errors %}<div class="text-warning">{{ form.title.errors }}</div>{% endif %}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>🎭 {{ form.genre.label }}</label>
+                {{ form.genre|add_class:"form-control-dark form-select" }} {# Add form-select for dropdown arrow styling #}
+                {% if form.genre.errors %}<div class="text-warning">{{ form.genre.errors }}</div>{% endif %}
+            </div>
+        </div>
+
+        {# Row 2: Date and Time #}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>📅 {{ form.date.label }}</label>
+                {{ form.date|add_class:"form-control-dark" }}
+                {% if form.date.errors %}<div class="text-warning">{{ form.date.errors }}</div>{% endif %}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>⏰ {{ form.time.label }}</label>
+                {{ form.time|add_class:"form-control-dark" }}
+                {% if form.time.errors %}<div class="text-warning">{{ form.time.errors }}</div>{% endif %}
+            </div>
+        </div>
+
+        {# Row 3: Location and Price #}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>📍 {{ form.location.label }}</label>
+                {{ form.location|add_class:"form-control-dark" }}
+                {% if form.location.errors %}<div class="text-warning">{{ form.location.errors }}</div>{% endif %}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>🏷️ {{ form.price.label }}</label>
+                {{ form.price|add_class:"form-control-dark" }}
+                {% if form.price.errors %}<div class="text-warning">{{ form.price.errors }}</div>{% endif %}
+            </div>
+        </div>
+
+        {# NEW FIELD: Total Available Tickets #}
+        <div class="mb-3">
+            <label>🎟️ {{ form.total_tickets.label }}</label>
+            {{ form.total_tickets|add_class:"form-control-dark" }}
+            {% if form.total_tickets.errors %}<div class="text-warning">{{ form.total_tickets.errors }}</div>{% endif %}
+        </div>
+
+        {# Original Row 4: Max Participants and Organizer Name #}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>👥 {{ form.max_participants.label }}</label>
+                {{ form.max_participants|add_class:"form-control-dark" }}
+                {% if form.max_participants.errors %}<div class="text-warning">{{ form.max_participants.errors }}</div>{% endif %}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>👤 {{ form.organizer_name.label }}</label>
+                {{ form.organizer_name|add_class:"form-control-dark" }}
+                {% if form.organizer_name.errors %}<div class="text-warning">{{ form.organizer_name.errors }}</div>{% endif %}
+            </div>
+        </div>
+
+        {# Row 5: Image URL and Image File Upload #}
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>🌐 {{ form.image_url.label }}</label>
+                {{ form.image_url|add_class:"form-control-dark" }}
+                {% if form.image_url.errors %}<div class="text-warning">{{ form.image_url.errors }}</div>{% endif %}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>🖼️ {{ form.image.label }}</label>
+                {{ form.image|add_class:"form-control-dark" }}
+                {% if form.image.errors %}<div class="text-warning">{{ form.image.errors }}</div>{% endif %}
+            </div>
+        </div>
+
+        {# Full-width fields: Description, Audience Type, Event Type #}
+        <div class="mb-3">
+            <label>📄 {{ form.description.label }}</label>
+            {{ form.description|add_class:"form-control-dark" }}
+            {% if form.description.errors %}<div class="text-warning">{{ form.description.errors }}</div>{% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label>🎯 {{ form.audience_type.label }}</label>
+            {{ form.audience_type|add_class:"form-control-dark form-select" }} {# Add form-select for dropdown arrow styling #}
+            {% if form.audience_type.errors %}<div class="text-warning">{{ form.audience_type.errors }}</div>{% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label>💻 {{ form.event_type.label }}</label>
+            {{ form.event_type|add_class:"form-control-dark form-select" }} {# Add form-select for dropdown arrow styling #}
+            {% if form.event_type.errors %}<div class="text-warning">{{ form.event_type.errors }}</div>{% endif %}
+        </div>
+
+        {# Use your custom btn-primary class #}
+        <button type="submit" class="btn-primary mt-2">Create Event</button>
+    </form>
+</div>
+{% endblock %}

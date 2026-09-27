@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ genre.name }} Events - EventHub{% endblock %}
+
+{% block content %}
+<div class="container content-padding-top content">
+    {# Use page-title from components.css for consistent heading styling #}
+    <h1 class="text-center mb-4 page-title">
+        {{ genre.name }} Events
+    </h1>
+
+    {# Reusing the grid structure from event_list.html and search results for consistency #}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for event in events %}
+            <div class="col">
+                {# Link to event detail, ensure namespace is correct if applicable #}
+                <a href="{% url 'event:event_detail' pk=event.pk %}" class="text-decoration-none">
+                    {# Use the event-card class for consistent card styling #}
+                    <div class="event-card h-100">
+                        {% if event.image %}
+                            <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}" style="height: 90px; object-fit: cover;">
+                        {% else %}
+                            {# Path to a generic placeholder image, use static tag #}
+                            <img src="{% static 'images/default_event_image.jpg' %}" class="card-img-top" alt="No image available" style="height: 90px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column" style="min-height: 75px;">
+                            {# card-title is styled by event-card .card-title in components.css #}
+                            <h5 class="card-title mb-2" style="height: 24px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{ event.title }}</h5>
+                            {# Text-muted for meta info, text-light-grey for description #}
+                            <p class="card-text text-muted mb-1 small">
+                                {% if event.date %}
+                                    {{ event.date|date:"M d, Y" }}
+                                {% endif %}
+                                {% if event.time %}
+                                    &middot; {{ event.time|time:"h:i A" }}
+                                {% endif %}
+                                {% if event.location %}{% if event.date or event.time %} &middot; {% endif %}{{ event.location }}{% endif %}
+                            </p>
+                            <p class="card-text text-light-grey small flex-grow-1" style="height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{ event.description|truncatechars:100 }}</p>
+                            {% if event.organizer_name %} {# Assuming organizer_name field for consistency #}
+                                <p class="card-text mt-auto"><small class="text-light-grey">By {{ event.organizer_name }}</small></p>
+                            {% endif %}
+                            
+                            <div class="mt-2">
+                                {% if event.is_paid %}
+                                    <span class="badge bg-success">Paid: ₹{{ event.price|floatformat:0 }}</span>
+                                {% else %}
+                                    <span class="badge bg-info">Free</span>
+                                {% endif %}
+                                {% if event.event_type %}
+                                    <span class="badge bg-secondary ms-2">{{ event.get_event_type_display }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% empty %}
+            {# Text-light-grey for no results message #}
+            <p class="text-light-grey text-center w-100">
+                No events found in this genre.
+            </p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block title %}Booking Success!{% endblock %}
+
+{% block extra_head %}
+    {# Link to your page-specific CSS for confirmation pages. #}
+    {# components.css should ideally be loaded globally in base.html. #}
+    <link rel="stylesheet" href="{% static 'event/css/confirm_success_pages.css' %}">
+{% endblock %}
+
+{% block content %}
+{# Using .success-card (from confirm_success_pages.css) for specific styling, #}
+{# and .confirm-booking-page (also from confirm_success_pages.css) for overall page layout. #}
+{# The .floating-card was more generic for forms, so .success-card is a better fit here. #}
+<div class="container success-card confirm-booking-page">
+    {# The page-title class handles the general heading style #}
+    <h1 class="page-title">Booking Successful!</h1>
+
+    <div class="confirm-info">
+        <p>Your booking has been successfully confirmed:</p>
+        {# detail-item structure is already good, styled by components.css #}
+        <div class="detail-item"><span class="detail-label">Event:</span> <span>{{ booking.event.title }}</span></div>
+        <div class="detail-item"><span class="detail-label">Date:</span> <span>{{ booking.event.date|date:"F d, Y" }}</span></div>
+        <div class="detail-item"><span class="detail-label">Time:</span> <span>{{ booking.event.time|time:"h:i A" }}</span></div>
+        <div class="detail-item"><span class="detail-label">Quantity:</span> <span>{{ booking.quantity }}</span></div>
+        <div class="detail-item"><span class="detail-label">Total Price:</span> <span>₹{{ booking.total_price }}</span></div>
+        <div class="detail-item"><span class="detail-label">Booking ID:</span> <span>{{ booking.id }}</span></div>
+        <div class="detail-item"><span class="detail-label">Payment ID:</span> <span>{{ booking.payment_id }}</span></div>
+    </div>
+
+    {# .booking-details-box was in your CSS, but not in this HTML. Adding it here if you intend to use it for a distinct box of details. #}
+    {# If the confirm-info div already serves this purpose, you can remove this section. #}
+    {% comment %}
+    <div class="booking-details-box">
+        <p>Here could be more specific details in a dedicated box:</p>
+        <div class="detail-item"><span class="detail-label">Confirmation Code:</span> <span>XYZ123ABC</span></div>
+    </div>
+    {% endcomment %}
+
+    {# success-actions is already good, styled by components.css #}
+    <div class="success-actions">
+        {# Using your custom button classes from components.css #}
+        <a href="{% url 'event:event_list' %}" class="btn-primary">Back to Events</a>
+        <a href="{% url 'event:my_bookings' %}" class="btn-secondary">My Bookings</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ event.title }}{% endblock %}
+
+{% block content %}
+<div class="container content-padding-top content">
+    <div class="event-detail-wrapper d-flex flex-column flex-md-row gap-4 align-items-center justify-content-center">
+
+        <!-- Event Image -->
+        <div class="event-detail-image text-center" style="flex: 1; max-width: 500px;">
+            <img src="{{ event.image.url }}" alt="{{ event.title }}"
+                 class="img-fluid rounded shadow event-detail-img-hover"
+                 style="max-height: 500px; object-fit: cover;">
+        </div>
+
+        <!-- Event Details -->
+        <div class="floating-card p-4 d-flex flex-column justify-content-between" style="flex: 1; min-width: 300px;">
+            <div>
+                <h2 class="page-title mb-2">{{ event.title }}</h2>
+                <span class="badge bg-danger mb-3">🎭 {{ event.genre.name }}</span>
+
+                <div class="detail-item"><span class="detail-label">📅 Date:</span> {{ event.date|date:"F d, Y" }}</div>
+                <div class="detail-item"><span class="detail-label">⏰ Time:</span> {{ event.time|time:"h:i A" }}</div>
+                <div class="detail-item"><span class="detail-label">📍 Location:</span> {{ event.location }}</div>
+                <div class="detail-item"><span class="detail-label">👤 Organizer:</span> {{ event.organizer_name }}</div>
+                <div class="detail-item"><span class="detail-label">🎟️ Price:</span> ₹{{ event.price }}</div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="{% url 'event:book_event' event_id=event.pk %}" class="btn-primary px-4 py-2">🎟️ Book Tickets</a>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5" style="border-color: rgba(var(--primary-red-rgb), 0.5);">
+
+    <div class="floating-card mt-3 p-4">
+        <h4 class="text-light-grey mb-3">About the Event</h4>
+        <p class="text-light-grey">{{ event.description }}</p>
+    </div>
+</div>
+{% endblock %}

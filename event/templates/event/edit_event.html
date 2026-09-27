@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %} {# Keep this, it's essential for adding classes to form fields #}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="container content-padding-top content">
+    {# Use page-title from components.css for consistent heading styling. Its color is var(--light-grey) #}
+    <h1 class="text-center mb-4 page-title">{{ page_title }}</h1>
+
+    {# Use floating-card for the main content block. Add form-lg if you want it wider like create_event. #}
+    <div class="floating-card form-lg"> {# Added form-lg for wider layout consistency with create_event #}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="mb-3">
+                    {# Handle checkboxes differently for better styling #}
+                    {% if field.widget_type == 'checkbox' %}
+                        <div class="form-check">
+                            {# Apply form-check-input for dark mode checkbox styling #}
+                            {{ field|add_class:"form-check-input" }}
+                            {# Apply text-white to the label directly if form-check-label doesn't pick up base color #}
+                            <label class="form-check-label" for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                            </label>
+                        </div>
+                    {% else %}
+                        {# Labels within floating-card are now styled by components.css (var(--light-grey)) #}
+                        <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                        {# Apply form-control-dark for input/textarea/select styling #}
+                        {# Add form-select for dropdowns (genre, audience_type, event_type) #}
+                        {% if field.widget_type == 'select' %}
+                            {{ field|add_class:"form-control-dark form-select" }}
+                        {% else %}
+                            {{ field|add_class:"form-control-dark" }}
+                        {% endif %}
+                    {% endif %}
+                    
+                    {% if field.help_text %}
+                        {# Use medium-grey for help text for a softer appearance #}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    
+                    {% for error in field.errors %}
+                        {# Use text-warning for field-specific errors, matching your theme #}
+                        <div class="text-warning mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <div class="d-flex justify-content-between mt-4">
+                {# Use your custom btn-primary class for the submit button #}
+                <button type="submit" class="btn-primary">Update Event</button>
+                {# Use your custom btn-secondary class for the cancel button #}
+                <a href="{% url 'event:event_detail' pk=event.pk %}" class="btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Browse by Genre - EventHub{% endblock %}
+
+{% block content %}
+<div class="container content-padding-top content">
+    <h1 class="text-center mb-4 page-title">Browse by Genre</h1>
+
+    <div class="genre-container">
+        {% for genre in genres %}
+            <a href="{% url 'event:events_by_genre' genre.slug %}" class="genre-card">
+                {% if genre.icon %}
+                    <img src="{{ genre.icon.url }}" alt="{{ genre.name }}">
+                {% else %}
+                    <img src="{% static 'event/icons/default_icon.png' %}" alt="Default Icon">
+                {% endif %}
+                <div class="genre-info">
+                    <h3>{{ genre.name }}</h3>
+                    <p>{{ genre.count }} events</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

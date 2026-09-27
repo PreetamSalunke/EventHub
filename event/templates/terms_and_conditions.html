@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Terms and Conditions{% endblock %}
+
+{% block content %}
+{# Ensure your help.css (or components.css if it contains the .floating-card-help-page styles) is linked in base.html #}
+{# If not, you might need to add: <link rel="stylesheet" href="{% static 'event/css/help.css' %}"> here #}
+
+<div class="floating-card-help-page"> {# Re-using the help page styling #}
+    <h1 class="text-center mb-4">Terms and Conditions</h1>
+    <p>Welcome to EventHub! These Terms and Conditions ("Terms") govern your use of our website and services. By accessing or using EventHub, you agree to be bound by these Terms. If you disagree with any part of the terms, then you may not access the service.</p>
+    <p>Please read these Terms carefully before using our service.</p>
+    <p>Last updated: July 2, 2025</p>
+
+    ---
+
+    <section class="mb-5">
+        <h2>Section 1: General Use</h2>
+        <p>EventHub provides an online platform that connects users interested in attending events ("Attendees") with individuals and organizations hosting events ("Organizers"). We act as an intermediary to facilitate event discovery and ticket booking. Our services are available to users who are at least 18 years old or have obtained parental consent.</p>
+        <h3>1.1 Modifications to Service or Terms</h3>
+        <ul>
+            <li>We reserve the right to modify or discontinue the Service (or any part thereof) with or without notice at any time.</li>
+            <li>We may revise these Terms from time to time. The most current version will always be posted on our website. Your continued use of the Service after any such changes constitutes your acceptance of the new Terms.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section class="mb-5">
+        <h2>Section 2: User Responsibilities</h2>
+        <p>As a user of EventHub, you agree to:</p>
+        <ul>
+            <li>**Accurate Information:** Provide accurate, current, and complete information during registration and event booking.</li>
+            <li>**Account Security:** Maintain the confidentiality of your account password and be responsible for all activities that occur under your account.</li>
+            <li>**Lawful Use:** Use the Service only for lawful purposes and in a manner that does not infringe the rights of, or restrict or inhibit the use and enjoyment of the Service by, any third party.</li>
+            <li>**Prohibited Conduct:** Not to engage in any activity that could damage, disable, overburden, or impair EventHub's servers or networks, or interfere with any other party's use and enjoyment of the Service.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section class="mb-5">
+        <h2>Section 3: Event Booking</h2>
+        <p>When booking tickets through EventHub, you agree to the following:</p>
+        <ul>
+            <li>**Availability:** Ticket availability is subject to change and is not guaranteed until your booking is confirmed.</li>
+            <li>**Pricing:** All prices are as displayed on the event page and include any applicable taxes unless stated otherwise.</li>
+            <li>**Ticket Validity:** Tickets are valid only for the specific event, date, and time purchased.</li>
+            <li>**Event Details:** It is your responsibility to verify all event details (date, time, location, content) before purchasing.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section class="mb-5">
+        <h2>Section 4: Payment and Refunds</h2>
+        <p>All payments for event tickets are processed securely through Razorpay. Our policies regarding payments and refunds are as follows:</p>
+        <ul>
+            <li>**Payment Processing:** By submitting your payment information, you authorize us (and our third-party payment processor, Razorpay) to charge the applicable amount to your selected payment method.</li>
+            <li>**Refund Policy:** Our refund policy is dictated by the individual event organizer. Please refer to the specific event's page and our dedicated <a href="{% url 'event:refund_policy' %}">Refund Policy</a> for detailed information on eligibility and process.</li>
+            <li>**Booking Fees:** Any non-refundable booking fees will be clearly indicated during the purchase process.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section class="mb-5">
+        <h2>Section 5: Intellectual Property</h2>
+        <p>All content on EventHub, including text, graphics, logos, images, software, and the compilation thereof, is the property of EventHub or its content suppliers and protected by copyright and intellectual property laws. Event names, descriptions, and images provided by Organizers remain their intellectual property.</p>
+        <h3>5.1 Limited License</h3>
+        <p>EventHub grants you a limited, non-exclusive, non-transferable, revocable license to access and use the Service for your personal, non-commercial use, strictly in accordance with these Terms.</p>
+    </section>
+
+    ---
+
+    <section class="mb-5">
+        <h2>Section 6: Limitation of Liability</h2>
+        <p>EventHub acts as a platform to connect Organizers and Attendees. We are not responsible for the content, quality, safety, or legality of events listed by Organizers. Your participation in any event is at your own risk.</p>
+        <ul>
+            <li>**No Warranty:** The Service is provided on an "as is" and "as available" basis, without any warranties of any kind, either express or implied.</li>
+            <li>**Damages:** In no event shall EventHub, its directors, employees, or agents be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from (i) your access to or use of or inability to access or use the Service; (ii) any conduct or content of any third party on the Service; (iii) any content obtained from the Service; and (iv) unauthorized access, use, or alteration of your transmissions or content, whether based on warranty, contract, tort (including negligence), or any other legal theory, whether or not we have been informed of the possibility of such damage.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section>
+        <h2>Section 7: Governing Law</h2>
+        <p>These Terms shall be governed and construed in accordance with the laws of India, without regard to its conflict of law provisions. Any dispute arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in Pimpri-Chinchwad, Maharashtra, India.</p>
+    </section>
+
+    ---
+
+    <section class="mt-5">
+        <h2>Contact Us</h2>
+        <p>If you have any questions about these Terms and Conditions, please contact us:</p>
+        <p>Email: <a href="mailto:support@yourdomain.com">support@yourdomain.com</a></p>
+        <p>(Optional) Phone: +91-XXXXXXXXXX</p>
+    </section>
+
+    ---
+
+    <section>
+        <h2>Related Policies</h2>
+        <p>For more detailed information, please also review our:</p>
+        <ul>
+            <li><a href="{% url 'event:privacy_policy' %}">Privacy Policy</a></li>
+            <li><a href="{% url 'event:refund_policy' %}">Refund Policy</a></li>
+        </ul>
+        <p class="text-white-50">
+            <small>Note: Remember to replace `yourdomain.com` with your actual domain and ensure the URLs for "Privacy Policy" and "Refund Policy" match the actual `name` attributes defined in your Django `urls.py`.</small>
+        </p>
+    </section>
+
+</div>
+{% endblock %}

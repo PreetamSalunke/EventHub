@@ -1,0 +1,372 @@
+/* Event List Page Specific Styles */
+
+.event-list-page {
+    padding-bottom: 20px;
+    min-height: calc(100vh - var(--navbar-height) - 40px);
+    background-color: transparent;
+    color: var(--light-grey);
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.filter-sidebar {
+    background-color: rgba(44, 44, 44, 0.9);
+    padding: 20px;
+    border-right: 1px solid rgba(var(--accent-red-rgb), 0.5);
+    position: sticky;
+    top: calc(var(--navbar-height) + 20px);
+    align-self: flex-start;
+    height: calc(100vh - var(--navbar-height) - 40px);
+    overflow-y: auto;
+    max-height: calc(100vh - var(--navbar-height) - 40px);
+    z-index: 1;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease; /* Added transition */
+}
+
+/* Optional: Add hover for filter-sidebar */
+.filter-sidebar:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    border-color: rgba(var(--accent-red-rgb), 0.8);
+}
+
+.filter-sidebar .card-header {
+    background-color: rgba(44, 44, 44, 0.95);
+    border-bottom: 1px solid rgba(var(--accent-red-rgb), 0.7);
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.filter-form label {
+    color: var(--light-grey);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-control-dark,
+.form-select-dark {
+    background-color: var(--input-dark) !important;
+    color: var(--light-grey) !important;
+    border: 1px solid var(--input-border-dark) !important;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Added transition */
+}
+
+.form-control-dark::placeholder {
+    color: var(--medium-grey) !important;
+    opacity: 0.7;
+}
+
+.form-control-dark::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
+
+.form-control-dark:focus,
+.form-select-dark:focus {
+    border-color: var(--primary-red) !important;
+    box-shadow: 0 0 0 0.25rem rgba(var(--accent-red-rgb), 0.25) !important;
+}
+
+.filter-form .btn-danger {
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.filter-form .btn-outline-secondary {
+    color: var(--medium-grey);
+    border-color: var(--medium-grey);
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.3s ease; /* Added transition */
+}
+.filter-form .btn-outline-secondary:hover {
+    background-color: var(--medium-grey);
+    color: var(--deep-dark);
+    box-shadow: 0 4px 12px rgba(176, 176, 176, 0.4); /* Add shadow on hover */
+    transform: translateY(-1px); /* Subtle lift */
+}
+.filter-form .btn-outline-secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 5px rgba(176, 176, 176, 0.2);
+}
+
+.event-list-content .btn-outline-danger {
+    color: var(--accent-red) !important;
+    border-color: var(--accent-red) !important;
+}
+.event-list-content .btn-outline-danger:hover {
+    background-color: var(--accent-red) !important;
+    color: var(--light-grey) !important;
+}
+
+@media (max-width: 767.98px) {
+    .filter-sidebar {
+        position: static;
+        height: auto;
+        max-height: none;
+        border-right: none;
+        border-bottom: 1px solid rgba(var(--accent-red-rgb), 0.5);
+        margin-bottom: 20px;
+        top: auto;
+        left: auto;
+        border-radius: 12px;
+    }
+
+    .filter-sidebar .card-header {
+        border-radius: 12px 12px 0 0;
+    }
+}
+
+.events-grid {
+    display: grid;
+    /* Changed: Using auto-fit for better behavior when few items */
+    /* Added: minmax(280px, 1fr) ensures cards are at least 280px wide but grow to fill space */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px; /* Space between cards */
+    padding: 20px;
+    max-width: 1200px; /* Constrain the overall width of the grid */
+    margin: 0 auto; /* Center the grid container */
+    justify-content: center; /* Center cards horizontally if they don't fill a row */
+}
+
+/* Updated event-card styles */
+.event-card {
+    background: rgba(44, 44, 44, 0.9);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--light-grey);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--aesthetic-border-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column; /* Stack image, content, buttons */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 300px; /* Adjusted: Minimum height for a more consistent card size */
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6),
+                0 0 25px rgba(var(--event-card-glow-color), 0.8);
+    border-color: rgba(var(--event-card-glow-color), 0.4);
+}
+
+/* NEW: Styles for cancelled event cards */
+.event-card.cancelled-event-card {
+    opacity: 0.7; /* Make it slightly transparent */
+    border: 1px solid var(--accent-red); /* Red border to signify cancellation */
+    box-shadow: 0 0 10px rgba(var(--accent-red-rgb), 0.5); /* Subtle red glow */
+}
+
+/* Optional: To make images in cancelled cards look desaturated */
+.event-card.cancelled-event-card img {
+    filter: grayscale(100%);
+    opacity: 0.8;
+}
+
+.event-card img {
+    width: 100%;
+    height: 160px; /* Adjusted: Height for image to fill top portion */
+    object-fit: cover; /* Make the image fill the container without distortion */
+    flex-shrink: 0; /* Prevent image from shrinking too much */
+}
+
+/* The .info block was not explicitly in your provided card-body structure.
+   If you have a separate .info div, ensure it's within .card-body or similar parent.
+   For consistency, I'm assuming content is primarily within .card-body. */
+/* .event-card .info {
+    padding: 16px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+} */
+
+.event-card .card-body {
+    padding: 1rem;
+    flex-grow: 1; /* Allow content to push buttons to the bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push meta/title to top, desc before buttons */
+}
+
+.event-card h2, .event-card .card-title {
+    margin: 0 0 8px;
+    font-size: 1.1em; /* Adjusted: Slightly smaller title */
+    color: var(--light-grey) !important;
+    text-align: left;
+}
+
+.event-card .meta, .event-card .card-text {
+    color: var(--light-grey) !important;
+    font-size: 0.85em; /* Adjusted: Slightly smaller meta */
+    margin-bottom: 6px; /* Adjusted: Smaller margin */
+}
+.event-card .card-text i {
+    margin-right: 5px; /* Adjusted: Smaller icon margin */
+    color: var(--accent-red);
+}
+
+.event-card .desc {
+    font-size: 0.9em; /* Adjusted: Smaller font size */
+    color: var(--light-grey);
+    margin-bottom: 10px; /* Adjusted: Smaller margin */
+    flex-grow: 1; /* Take up remaining space before buttons */
+}
+
+.event-card .organizer {
+    font-size: 0.8em; /* Adjusted: Smaller font size */
+    color: var(--light-grey) !important;
+    margin-top: auto; /* Push to the bottom of the text content */
+}
+
+.event-card .badge {
+    font-weight: 600;
+    padding: 0.3em 0.6em; /* Adjusted: Smaller padding */
+    border-radius: 0.2rem; /* Adjusted: Smaller radius */
+    font-size: 0.75em; /* Adjusted: Smaller font */
+}
+
+.event-card .badge.bg-success {
+    background-color: var(--accent-red) !important;
+    color: white !important;
+}
+
+.event-card .badge.bg-info {
+    background-color: transparent !important;
+    border: 1px solid var(--primary-red) !important;
+    color: var(--light-grey) !important;
+}
+
+.event-card .badge.bg-secondary {
+    background-color: var(--dark-red) !important;
+    color: white !important;
+}
+
+/* NEW: Styles for "Book Now" and "More Info" buttons side by side */
+.event-card-actions {
+    display: flex; /* Use flexbox for horizontal layout */
+    gap: 10px; /* Space between buttons */
+    padding: 10px; /* Padding around the buttons */
+    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Subtle separator above buttons */
+    margin-top: auto; /* Pushes the action block to the bottom of the card */
+}
+
+.event-card-actions a {
+    flex: 1; /* Make buttons share available space equally */
+    text-align: center;
+    padding: 8px 12px; /* Smaller button padding */
+    border-radius: 6px; /* Slightly smaller button radius */
+    font-size: 0.9em; /* Smaller button font */
+    text-decoration: none; /* Remove underline */
+}
+
+.event-card-actions a.btn-primary {
+    background-color: var(--primary-red);
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 6px rgba(var(--primary-red-rgb), 0.3);
+}
+
+.event-card-actions a.btn-primary:hover {
+    background-color: var(--dark-red);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(var(--primary-red-rgb), 0.5);
+}
+
+.event-card-actions a.btn-secondary {
+    background-color: transparent;
+    color: var(--light-grey);
+    border: 1px solid var(--medium-grey);
+    transition: border-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.event-card-actions a.btn-secondary:hover {
+    color: var(--primary-red);
+    border-color: var(--primary-red);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(var(--primary-red-rgb), 0.3);
+}
+
+.event-status-banner {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: center;
+    width: auto;
+    min-width: 80px;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.event-status-banner.upcoming {
+    background-color: var(--accent-green);
+}
+
+.event-status-banner.expired {
+    background-color: var(--accent-red);
+}
+
+/* NEW: Style for the "Cancelled" status banner */
+.event-status-banner.cancelled {
+    background-color: var(--primary-red); /* Using primary-red for cancelled status */
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .events-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        padding: 15px;
+        gap: 15px;
+    }
+    .event-card {
+        min-height: 280px; /* Slightly reduce min-height for smaller screens */
+    }
+    .event-card img {
+        height: 140px; /* Adjust image height for smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .events-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+        padding: 10px;
+        gap: 10px;
+    }
+    .event-card {
+        min-height: 250px; /* Further reduce min-height */
+    }
+    .event-card img {
+        height: 120px; /* Further adjust image height */
+    }
+    .event-card .card-body {
+        padding: 0.8rem;
+    }
+    .event-card-actions {
+        flex-direction: column; /* Stack buttons vertically on very small screens */
+        gap: 8px;
+    }
+    .event-card-actions a {
+        padding: 10px; /* Adjust button padding for stacked layout */
+        font-size: 1em;
+    }
+}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Bookings - EventHub{% endblock %}
+
+{% block content %}
+<div class="container content-padding-top content">
+    <h1 class="page-title my-bookings-header">My Bookings</h1>
+
+    {% if bookings %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for booking in bookings %}
+                <div class="col">
+                    <a href="{% url 'event:event_detail' pk=booking.event.pk %}" class="text-decoration-none">
+                        <div class="event-card d-flex flex-column position-relative h-100">
+                            
+                            {# Status Banner #}
+                            {% if booking.event.is_upcoming %}
+                                <div class="event-status-banner upcoming">Upcoming</div>
+                            {% else %}
+                                <div class="event-status-banner expired">Expired</div>
+                            {% endif %}
+
+                            {# Event Image #}
+                            <div class="event-card-image-wrapper">
+                                {% if booking.event.image %}
+                                    <img src="{{ booking.event.image.url }}" class="event-card-img" alt="{{ booking.event.title }}">
+                                {% else %}
+                                    <img src="{% static 'images/default_event_image.jpg' %}" class="event-card-img" alt="Default Event Image">
+                                {% endif %}
+                            </div>
+
+                            {# Card Body #}
+                            <div class="event-card-body d-flex flex-column">
+                                <h4 class="event-card-title">{{ booking.event.title }}</h4>
+
+                                <p class="event-card-meta">
+                                    {{ booking.event.date|date:"M d, Y" }}
+                                    {% if booking.event.time %}&middot; {{ booking.event.time|time:"h:i A" }}{% endif %}
+                                    &middot; {{ booking.event.location }}
+                                </p>
+
+                                <p class="text-light-grey small">Tickets: {{ booking.quantity }} | Total: ₹{{ booking.total_price|floatformat:0 }}</p>
+                                <p class="text-light-grey small mt-auto">Booking ID: {{ booking.id }}</p>
+                                <p class="text-light-grey small">Booked on: {{ booking.booked_at|date:"M d, Y" }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-bookings-message text-light-grey text-center">
+            You haven't booked any events yet.
+            <br>
+            <a href="{% url 'event:event_list' %}" class="btn-secondary mt-3">Browse available events!</a>
+        </p>
+    {% endif %}
+</div>
+{% endblock %}

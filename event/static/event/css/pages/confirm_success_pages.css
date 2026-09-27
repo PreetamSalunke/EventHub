@@ -1,0 +1,87 @@
+/* Styles specific to booking success and other confirmation pages */
+
+.confirm-booking-page {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    /* This class is now primarily for general page layout/margins */
+}
+
+/* The .confirm-card class itself is moved to components.css as it seems reusable */
+/* If success-card is fundamentally different, keep its unique styles here. */
+.success-card {
+    max-width: 550px; /* Slightly different max-width than confirm-card */
+    padding: 40px;
+    border: 1px solid var(--primary-red); /* Unique border */
+    box-shadow: 0 10px 30px rgba(var(--primary-red-rgb), 0.2); /* Unique shadow */
+    background-color: rgba(44, 44, 44, 0.9);
+    border-radius: 12px;
+    /* NOTE: You have border: 1px solid var(--aesthetic-border-color); defined again here.
+             If you want the primary-red border, keep that. If aesthetic-border-color is secondary, use that.
+             I'll assume primary-red for now as per your original success-card. */
+    border: 1px solid var(--aesthetic-border-color); /* Overwriting the primary-red border if it's meant to be subtle */
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    margin-left: auto; /* Ensure it's centered */
+    margin-right: auto;
+}
+
+.success-card:hover {
+    box-shadow: 0 12px 35px rgba(var(--primary-red-rgb), 0.3),
+                0 0 20px rgba(var(--primary-red-rgb), 0.5);
+    border-color: rgba(var(--primary-red-rgb), 0.4);
+}
+
+.success-icon {
+    width: 80px;
+    height: auto;
+    margin: 0 auto 25px;
+    display: block;
+}
+
+.success-title {
+    color: var(--primary-red);
+    font-size: 2.5em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.success-message {
+    color: var(--light-grey);
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
+
+/* If confirm-info is only on the success page, keep it here. If also on booking_detail, move to components.css */
+.confirm-info {
+    color: var(--light-grey);
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    line-height: 1.6;
+    text-align: left; /* You had this set to left here */
+}
+
+.confirm-info strong {
+    color: var(--primary-red);
+    margin-right: 8px;
+}
+
+/* The .booking-details-box is likely specific to the success page as well */
+.booking-details-box {
+    background-color: rgba(26, 26, 26, 0.9);
+    border-radius: 10px;
+    padding: 25px;
+    text-align: left;
+    display: inline-block; /* Allows it to shrink to content and be centered with margin auto */
+    max-width: 100%;
+    width: fit-content;
+    margin: 20px auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.booking-details-box:hover {
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.6), 0 0 10px rgba(var(--primary-red-rgb), 0.2);
+    border-color: rgba(var(--primary-red-rgb), 0.3);
+}
+
+/* .confirm-button was empty, removing it. */

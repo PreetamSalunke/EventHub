@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5 text-center text-white">
+  <h2>You have been logged out</h2>
+  <p class="lead">Thank you for visiting!</p>
+  <a href="{% url 'account_login' %}" class="btn btn-custom mt-3">Login Again</a>
+</div>
+{% endblock %}

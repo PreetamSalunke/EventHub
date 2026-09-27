@@ -1,0 +1,114 @@
+/* --- Styles for the help page card and content --- */
+.floating-card-help-page {
+    max-width: 900px; /* Adjust as needed */
+    width: 90%;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: var(--dark-background); /* Using dark-background for card */
+    border-radius: var(--border-radius-md); /* Using variable for border-radius */
+    box-shadow: var(--shadow-lg); /* Using variable for shadow */
+    color: var(--light-grey); /* Using light-grey for general text */
+    border: 1px solid var(--primary-red); /* Using primary-red for card border */
+}
+
+/* Headings */
+.floating-card-help-page h1,
+.floating-card-help-page h2,
+.floating-card-help-page h3,
+.floating-card-help-page h4 {
+    color: var(--highlight-red); /* Using highlight-red for main headings */
+    margin-top: 25px; /* Spacing for sections */
+    margin-bottom: 15px;
+}
+
+.floating-card-help-page h1 {
+    font-size: 2.5rem;
+}
+.floating-card-help-page h2 {
+    font-size: 2rem;
+    border-bottom: 1px solid var(--primary-red); /* Using primary-red for underline */
+    padding-bottom: 5px;
+}
+.floating-card-help-page h3 {
+    color: var(--warning-color); /* Using warning-color for sub-headings (yellow) */
+    font-size: 1.5rem;
+}
+
+/* Paragraphs and Lists */
+.floating-card-help-page p,
+.floating-card-help-page ul,
+.floating-card-help-page ol {
+    color: var(--light-grey); /* Using light-grey for text color */
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.floating-card-help-page ul li,
+.floating-card-help-page ol li {
+    margin-bottom: 8px;
+}
+
+/* Links */
+.floating-card-help-page a {
+    color: var(--warning-color); /* Using warning-color for links (yellow) */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.floating-card-help-page a:hover {
+    color: var(--dark-grey); /* Using dark-grey for link hover. Note: A specific darker yellow variable isn't available. */
+    text-decoration: underline;
+}
+
+/* Bootstrap Accordion Styling (for FAQs) */
+.floating-card-help-page .accordion-item {
+    background-color: var(--dark-background); /* Using dark-background for each FAQ item */
+    border: 1px solid var(--primary-red); /* Using primary-red for FAQ item border */
+    margin-bottom: 10px; /* Space between FAQ items */
+    border-radius: var(--border-radius-sm); /* Using variable for border-radius */
+    overflow: hidden; /* Ensures border-radius applies correctly */
+}
+
+.floating-card-help-page .accordion-button {
+    background-color: var(--dark-surface); /* Using dark-surface for accordion header */
+    color: var(--highlight-red); /* Using highlight-red for FAQ question */
+    font-weight: bold;
+    padding: 15px 20px;
+    border: none; /* Remove default button border */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.floating-card-help-page .accordion-button:hover {
+    background-color: var(--input-dark); /* Using input-dark on hover */
+    color: var(--light-grey); /* Lighter text on hover */
+}
+
+.floating-card-help-page .accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(var(--highlight-red-rgb), 0.25); /* Using highlight-red-rgb for focus glow */
+    border-color: var(--highlight-red); /* Using highlight-red for focus border */
+}
+
+.floating-card-help-page .accordion-button:not(.collapsed) {
+    background-color: var(--input-dark); /* Using input-dark when active/open */
+    color: var(--light-grey); /* White text when open */
+    box-shadow: inset 0 -1px 0 rgba(var(--highlight-red-rgb), 0.25); /* Using highlight-red-rgb for red line */
+}
+
+/* Customizing the accordion arrow icon */
+/* These filters are complex and convert a dark icon to specific colors (red then white).
+   They are kept as is because they don't have direct CSS variable equivalents. */
+.floating-card-help-page .accordion-button::after {
+    filter: invert(100%) sepia(100%) saturate(1000%) hue-rotate(330deg) brightness(100%) contrast(100%); /* Makes the Bootstrap arrow red */
+    transition: transform 0.2s ease-in-out;
+}
+
+.floating-card-help-page .accordion-button:not(.collapsed)::after {
+    filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(0deg) brightness(100%) contrast(100%); /* Makes it white when collapsed */
+}
+
+.floating-card-help-page .accordion-body {
+    background-color: var(--dark-surface); /* Using dark-surface for the answer content */
+    color: var(--light-grey); /* Using light-grey for text */
+    padding: 20px;
+    border-top: 1px solid var(--primary-red); /* Using primary-red as separator */
+}

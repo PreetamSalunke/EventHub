@@ -1,0 +1,227 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EventHub{% endblock %}</title>
+
+    
+
+    {# External CSS libraries first #}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    {# Your custom app-specific CSS comes last to allow overrides #}
+    {# Link to your new modular CSS files #}
+    <link rel="stylesheet" href="{% static 'event/css/_variables.css' %}">
+    <link rel="stylesheet" href="{% static 'event/css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'event/css/components.css' %}">
+    <link rel="stylesheet" href="{% static 'event/css/event_cards.css' %}">
+    <link rel="stylesheet" href="{% static 'event/css/genre_cards.css' %}">
+    <link rel="stylesheet" href="{% static 'event/css/modals.css' %}">
+    <link rel="stylesheet" href="{% static 'event/css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'event/css/help.css' %}">
+    <link rel="stylesheet" href="{% static 'event/css/event_detail.css' %}">
+
+    {# Page-specific CSS (loaded only on relevant pages) #}
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    {# Use your custom navbar-dark-bg class for the navbar background and shadow #}
+    <nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top navbar-dark-bg">
+        <div class="container-fluid">
+            {# Logo link updated to point to homepage_all_events #}
+                <a href="{% url 'event:event_list' %}" class="navbar-brand logo">
+                <span class="event-text">Event</span><span class="hub-text">Hub</span>
+                </a>            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-links">
+                    <li class="nav-item">
+                        <a class="nav-link text-light-grey" href="{% url 'event:genre_list' %}">Events By Genre</a>
+                    </li>
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                        <a class="nav-link text-light-grey" href="{% url 'event:create_event' %}">Create Event</a>
+                        {% else %}
+                        {# Use btn-link-dark for a button that looks like a nav-link in dark mode #}
+                        <a class="nav-link text-light-grey" href="#" onclick="event.preventDefault(); showLoginMessage();">Create Event</a>
+                        {% endif %}
+                    </li>
+                    {# NEW: My Events link for authenticated users #}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-light-grey" href="{% url 'event:my_events' %}">My Events</a>
+                    </li>
+                    {% endif %}
+                    {# END NEW #}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-light-grey" href="{% url 'event:my_bookings' %}">My Bookings</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link text-light-grey" href="{% url 'event:help_page' %}">Help</a>
+                    </li>
+                </ul>
+                <form action="{% url 'event:event_search' %}" method="get" class="d-flex mb-2 mb-lg-0 me-3">
+                    <input type="text" name="q" placeholder="Search events..." class="form-control me-2 form-control-dark-navbar"
+                        value="{{ query|default_if_none:'' }}">
+                    {# Use your custom btn-primary for the search button #}
+                    <button type="submit" class="btn-primary-sm">🔍</button>
+                </form>
+                <div class="d-flex align-items-center gap-3">
+                    {% if user.is_authenticated %}
+                    {# Use text-light-grey for consistency #}
+                    <span class="text-light-grey">Welcome,
+                        {{ user.email|default:user.mobile }}
+                    </span>
+                    <form method="POST" action="{% url 'account_logout' %}">
+                        {% csrf_token %}
+                        {# Use your custom btn-danger for the logout button #}
+                        <button class="btn-danger-sm" type="submit">Logout</button>
+                    </form>
+                    {% else %}
+                    {# Use your custom btn-primary for the Get Started button #}
+                    <button class="btn-primary" data-bs-toggle="modal" data-bs-target="#authModal">Get Started</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="offer-banner">
+  <div class="offer-text">
+    🎉 Get up to 50% OFF on Weekend Events! Book Now & Save Big! 🎟️
+  </div>
+</div>
+
+
+    {# Main content area, with padding-top to account for fixed navbar #}
+    <main class="content d-flex flex-grow-1 content-padding-top">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {# Authentication Modal #}
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            {# Use modal-content-dark for overall modal styling #}
+            <div class="modal-content modal-content-dark">
+                <div class="modal-header border-0">
+                    {# Use page-title or a more specific modal-title class if defined #}
+                    <h5 class="modal-title page-title" id="authModalLabel">Get Started</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"
+                        onclick="hideLoginMessage()"></button>
+                </div>
+                <div class="modal-body text-center">
+                    {# Use alert-message and text-warning for the login alert #}
+                    <div id="loginAlert" class="alert alert-warning text-center alert-message rounded-pill">
+                        Please <a href="{% url 'account_login' %}" class="text-primary-red-link">Login</a> or <a href="{% url 'account_signup' %}"
+                            class="text-primary-red-link">Register</a> to create an event.
+                    </div>
+                    <div id="socialOptions" class="d-flex flex-column gap-3 mt-3">
+                        {# Use btn-outline-danger with custom styles for social buttons #}
+                        <a href="{% provider_login_url 'google' %}" class="btn btn-outline-danger btn-social">
+                            <i class="fa-brands fa-google me-2"></i>Continue with Google
+                        </a>
+                        <button class="btn btn-outline-danger btn-social" id="showEmailForm">
+                            <i class="fa-solid fa-envelope me-2"></i>Continue with Email
+                        </button>
+                        {# Use text-light-grey for "OR" #}
+                        <div class="text-light-grey">OR</div>
+                        <a href="{% url 'event:mobile_login' %}" class="btn btn-outline-danger btn-social">
+                            <i class="fa-solid fa-phone me-2"></i>Continue with Mobile
+                        </a>
+                    </div>
+                    {# Email/Password Login Form in Modal #}
+                    <form method="POST" action="{% url 'account_login' %}" id="emailForm" class="d-none mt-4 text-start">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            {# Use text-light-grey for labels #}
+                            <label for="id_login" class="form-label text-light-grey">Email</label>
+                            {# Use form-control-dark for inputs #}
+                            <input type="text" name="login" id="id_login" class="form-control form-control-dark" required>
+                        </div>
+                        <div class="mb-3">
+                            {# Use text-light-grey for labels #}
+                            <label for="id_password" class="form-label text-light-grey">Password</label>
+                            {# Use form-control-dark for inputs #}
+                            <input type="password" name="password" id="id_password" class="form-control form-control-dark" required>
+                        </div>
+                        {# Use btn-primary for the sign-in button #}
+                        <button type="submit" class="btn-primary w-100">Sign In</button>
+                        <div class="text-center mt-3">
+                            {# Use text-primary-red-link for these modal links #}
+                            <a href="{% url 'account_reset_password' %}" class="text-primary-red-link">Forgot password?</a><br>
+                            <a href="{% url 'account_signup' %}" class="text-primary-red-link">New user? Register</a>
+                        </div>
+                    </form>
+                    {# Privacy Policy / T&C Text #}
+                    <p class="text-light-grey mt-4" style="font-size: 0.8em;">
+                        By continuing, you agree to the <a href="{% url 'event:terms_and_conditions' %}" class="text-primary-red-link">Terms</a> & <a href="{% url 'event:privacy_policy' %}"
+                            class="text-primary-red-link">Privacy Policy</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Toast Messages #}
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+        {% for message in messages %}
+        {# Use toast-dark for background colors and adjust text colors #}
+        <div class="toast text-white toast-dark bg-{{ message.tags|default:'secondary' }} border-0 show shadow-lg" role="alert"
+            aria-live="assertive" aria-atomic="true" data-bs-delay="4000">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ message }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toasts
+        document.querySelectorAll('.toast').forEach(toastEl => {
+            new bootstrap.Toast(toastEl).show();
+        });
+
+        // Toggle Email Login
+        document.getElementById('showEmailForm')?.addEventListener('click', function () {
+            document.getElementById('socialOptions').classList.add('d-none');
+            document.getElementById('emailForm').classList.remove('d-none');
+        });
+
+        const authModal = document.getElementById('authModal');
+
+        authModal?.addEventListener('hidden.bs.modal', function () {
+            document.getElementById('emailForm')?.classList.add('d-none');
+            document.getElementById('socialOptions')?.classList.remove('d-none');
+            hideLoginMessage();
+        });
+
+        function showLoginMessage() {
+            document.getElementById('loginAlert').classList.add('show');
+            const authModal = new bootstrap.Modal(document.getElementById('authModal'));
+            authModal.show();
+        }
+
+        function hideLoginMessage() {
+            document.getElementById('loginAlert').classList.remove('show');
+        }
+    </script>
+    {% include 'footer.html' %}
+</body>
+</html>

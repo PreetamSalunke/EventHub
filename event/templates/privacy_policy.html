@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Privacy Policy{% endblock %}
+
+{% block content %}
+{# Ensure your help.css (or components.css if it contains the .floating-card-help-page styles) is linked in base.html #}
+{# If not, you might need to add: <link rel="stylesheet" href="{% static 'event/css/help.css' %}"> here #}
+
+<div class="floating-card-help-page">
+    <h1 class="text-center mb-4">Privacy Policy</h1>
+    <p>At EventHub, we are deeply committed to protecting your privacy and handling your data with transparency and care. This Privacy Policy outlines how we collect, use, and disclose information about you when you visit our website, use our services, or interact with us.</p>
+    <p>By using EventHub, you agree to the collection and use of your information in accordance with this policy.</p>
+    <p>Last updated: July 2, 2025</p>
+
+    ---
+
+    <section class="mb-5">
+        <h2>Information We Collect</h2>
+        <p>We collect various types of information to provide and improve our services to you. This includes:</p>
+        <ul>
+            <li><strong>Personal Data:</strong> Information you voluntarily provide when you register, book tickets, or contact us. This may include your name, email address, phone number, and payment details (processed securely via Razorpay).</li>
+            <li><strong>Usage Data:</strong> Information automatically collected as you interact with our site, such as your IP address, browser type, pages visited, time spent on pages, and referring URLs. This helps us understand how our services are used and improve them.</li>
+            <li><strong>Cookies and Tracking Technologies:</strong> We use cookies and similar technologies (like pixels and web beacons) to enhance your Browse experience, remember your preferences, and analyze site traffic. You can control cookie settings through your browser.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section class="mb-5">
+        <h2>How We Use Your Information</h2>
+        <p>Your collected information serves several crucial purposes:</p>
+        <ul>
+            <li>To **provide and maintain our service**, including processing your event bookings and managing your account.</li>
+            <li>To **personalize your experience** on EventHub, showing you events and content relevant to your interests.</li>
+            <li>To **communicate with you**, including sending booking confirmations, updates, promotional offers (if you've opted in), and responding to your inquiries.</li>
+            <li>To **ensure the security of our platform** and protect against fraudulent or unauthorized activity.</li>
+            <li>To **perform analytics and research** to understand user behavior, improve our services, and develop new features.</li>
+            <li>To **comply with legal obligations** and enforce our terms and conditions.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section class="mb-5">
+        <h2>How We Share Your Information</h2>
+        <p>We respect your privacy and only share your information in specific, limited circumstances:</p>
+        <ul>
+            <li><strong>With Event Organizers:</strong> When you book tickets for an event, we share necessary information (like your name and contact details) with the respective event organizer to facilitate your attendance and their event management.</li>
+            <li><strong>Service Providers:</strong> We work with trusted third-party service providers (e.g., payment processors like Razorpay, email delivery services, analytics providers) who assist us in operating our website and delivering our services. These providers are obligated to protect your data.</li>
+            <li><strong>Legal Requirements:</strong> We may disclose your information if required by law, court order, or governmental regulation, or if we believe such action is necessary to comply with legal processes or protect our rights and safety.</li>
+            <li><strong>Business Transfers:</strong> In the event of a merger, acquisition, or asset sale, your personal data may be transferred as part of the transaction. We will notify you before your personal data is transferred and becomes subject to a different privacy policy.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section class="mb-5">
+        <h2>Your Choices and Rights</h2>
+        <p>You have control over your information. Here are some of your rights:</p>
+        <ul>
+            <li><strong>Access & Correction:</strong> You can access and update most of your personal information through your account settings.</li>
+            <li><strong>Deletion:</strong> You may request the deletion of your account and personal data, subject to certain legal obligations.</li>
+            <li><strong>Marketing Opt-Out:</strong> You can opt-out of receiving promotional communications from us by following the unsubscribe link in our emails or by adjusting your notification settings.</li>
+            <li><strong>Cookie Control:</strong> Most web browsers allow you to control cookies through their settings. However, disabling cookies may affect the functionality of our website.</li>
+        </ul>
+    </section>
+
+    ---
+
+    <section class="mb-5">
+        <h2>Data Security</h2>
+        <p>We implement a variety of security measures to protect your personal data from unauthorized access, alteration, disclosure, or destruction. This includes using secure servers, encryption (e.g., SSL/TLS), and access controls. However, please remember that no method of transmission over the Internet or electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your personal data, we cannot guarantee its absolute security.</p>
+    </section>
+
+    ---
+
+    <section>
+        <h2>Changes to This Policy</h2>
+        <p>We may update our Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date. We encourage you to review this Privacy Policy periodically for any changes.</p>
+    </section>
+
+    ---
+
+    <section class="mt-5">
+        <h2>Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please don't hesitate to contact our dedicated support team. We're here to assist you!</p>
+        <p>Email: <a href="mailto:support@yourdomain.com">support@yourdomain.com</a></p>
+        <p>(Optional) Phone: +91-XXXXXXXXXX (Available Monday - Friday, 9:00 AM - 5:00 PM IST)</p>
+        <p>We strive to respond to all inquiries within 24-48 business hours.</p>
+    </section>
+
+    ---
+
+    <section>
+        <h2>Legal Information</h2>
+        <p>For comprehensive details on our policies and legal agreements, please refer to:</p>
+        <ul>
+            <li><a href="{% url 'event:terms_and_conditions' %}">Terms and Conditions</a></li>
+            <li><a href="{% url 'event:refund_policy' %}">Refund Policy</a></li>
+        </ul>
+        <p class="text-white-50">
+            <small>Note: Remember to replace `yourdomain.com` with your actual domain and ensure the URLs for "Terms and Conditions" and "Refund Policy" match the actual `name` attributes defined in your Django `urls.py`.</small>
+        </p>
+    </section>
+
+</div>
+{% endblock %}

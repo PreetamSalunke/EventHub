@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Browse Events - EventHub{% endblock %}
+{% block content %}
+
+<div class="container-fluid content-padding-top content event-list-page">
+    <h1 class="text-center mb-4 page-title">Browse Events</h1>
+
+    <!-- Toggle Button -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <button class="btn btn-danger w-100" id="toggleFilterSidebar">
+                <i class="fas fa-filter me-2"></i> Search by Filters
+            </button>
+        </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="row mb-4 d-none" id="filterBar">
+        <div class="col-12">
+            <form method="GET" action="{% url 'event:event_list' %}" id="filterSortForm">
+                <div class="filter-bar bg-dark text-white p-3 rounded shadow">
+                    <div class="row align-items-end">
+                        <div class="col-md-3 mb-3">
+                            <label for="date_range" class="form-label">Date</label>
+                            <select class="form-select form-control-dark" name="date_range" id="date_range">
+                                <option value="">Any Date</option>
+                                <option value="today" {% if request.GET.date_range == 'today' %}selected{% endif %}>Today</option>
+                                <option value="this_week" {% if request.GET.date_range == 'this_week' %}selected{% endif %}>This Week</option>
+                                <option value="this_weekend" {% if request.GET.date_range == 'this_weekend' %}selected{% endif %}>This Weekend</option>
+                                <option value="next_month" {% if request.GET.date_range == 'next_month' %}selected{% endif %}>Next Month</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Price</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="price_range" value="" id="price_any" {% if not request.GET.price_range %}checked{% endif %}>
+                                <label class="form-check-label" for="price_any">Any Price</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="price_range" value="free" id="price_free" {% if request.GET.price_range == 'free' %}checked{% endif %}>
+                                <label class="form-check-label" for="price_free">Free</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="price_range" value="paid" id="price_paid" {% if request.GET.price_range == 'paid' %}checked{% endif %}>
+                                <label class="form-check-label" for="price_paid">Paid</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label for="location_city" class="form-label">City</label>
+                            <input type="text" class="form-control form-control-dark" id="location_city" name="location_city" value="{{ request.GET.location_city|default:'' }}" placeholder="e.g., Pune">
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label for="audience" class="form-label">Audience</label>
+                            <select class="form-select form-control-dark" name="audience" id="audience">
+                                <option value="">Any Audience</option>
+                                <option value="family" {% if request.GET.audience == 'family' %}selected{% endif %}>Family-friendly</option>
+                                <option value="18_plus" {% if request.GET.audience == '18_plus' %}selected{% endif %}>18+ Only</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6 mb-3">
+                            <label for="sort_by" class="form-label">Sort By</label>
+                            <select class="form-select form-control-dark" id="sort_by" name="sort_by">
+                                <option value="event_date_asc" {% if request.GET.sort_by == 'event_date_asc' %}selected{% endif %}>Date (Ascending)</option>
+                                <option value="event_date_desc" {% if request.GET.sort_by == 'event_date_desc' %}selected{% endif %}>Date (Descending)</option>
+                                <option value="popularity" {% if request.GET.sort_by == 'popularity' %}selected{% endif %}>Popularity</option>
+                                <option value="price_asc" {% if request.GET.sort_by == 'price_asc' %}selected{% endif %}>Price (Low to High)</option>
+                                <option value="price_desc" {% if request.GET.sort_by == 'price_desc' %}selected{% endif %}>Price (High to Low)</option>
+                                <option value="relevance" {% if request.GET.sort_by == 'relevance' %}selected{% endif %}>Relevance</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 d-flex align-items-end justify-content-md-end mt-3 mt-md-0">
+                            <button type="submit" class="btn btn-danger me-2">Apply Filters</button>
+                            <button type="button" class="btn btn-secondary" id="clearFiltersBtn">Clear Filters</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Events Section -->
+    <div class="row">
+        <div class="col-12 event-list-content" id="eventListContainer">
+            {% include 'event/partials/event_cards.html' %}
+        </div>
+    </div>
+</div>
+
+<!-- Styles -->
+<style>
+/* (Same styles you already had for filter bar) */
+</style>
+
+<!-- Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleButton = document.getElementById('toggleFilterSidebar');
+    const filterBar = document.getElementById('filterBar');
+    const form = document.getElementById('filterSortForm');
+    const eventListContainer = document.getElementById('eventListContainer');
+    const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+
+    // Toggle visibility
+    toggleButton.addEventListener('click', function () {
+        filterBar.classList.toggle('d-none');
+    });
+
+    // AJAX submission
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData(form);
+        const queryString = new URLSearchParams(formData).toString();
+        const newUrl = `${window.location.pathname}?${queryString}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+
+        fetch(newUrl, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(res => res.text())
+        .then(html => {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            const updatedContent = doc.getElementById('eventListContainer')?.innerHTML || "<p>No events found</p>";
+            eventListContainer.innerHTML = updatedContent;
+        })
+        .catch(err => {
+            console.error("AJAX error:", err);
+            eventListContainer.innerHTML = '<p class="text-light-grey text-center">Failed to load events.</p>';
+        });
+    });
+
+    // Clear filters
+    clearFiltersBtn.addEventListener('click', () => {
+        form.reset();
+        form.requestSubmit();
+    });
+});
+</script>
+
+{% endblock %}
